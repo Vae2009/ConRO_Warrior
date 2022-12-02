@@ -523,7 +523,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 
 --Rotations		
 	for i = 1, 2, 1 do
-		if _Ravager_RDY and ConRO:FullMode(_Ravagers) then
+		if _Ravager_RDY and ConRO:FullMode(_Ravager) then
 			tinsert(ConRO.SuggestedSpells, _Ravager);
 			_Ravager_RDY = false;
 		end
@@ -654,11 +654,11 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 	wipe(ConRO.SuggestedSpells)
 	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Prot_Ability, ids.Prot_Passive, ids.Prot_Form, ids.Prot_Buff, ids.Prot_Debuff, ids.Prot_PetAbility, ids.Prot_PvPTalent, ids.Glyph;
 --Info
-	local _Player_Level																					= UnitLevel("player");
-	local _Player_Percent_Health 																		= ConRO:PercentHealth('player');
-	local _is_PvP																						= ConRO:IsPvP();
-	local _in_combat 																					= UnitAffectingCombat('player');
-	local _party_size																					= GetNumGroupMembers();
+	local _Player_Level = UnitLevel("player");
+	local _Player_Percent_Health = ConRO:PercentHealth('player');
+	local _is_PvP = ConRO:IsPvP();
+	local _in_combat = UnitAffectingCombat('player');
+	local _party_size = GetNumGroupMembers();
 
 	local _is_PC = UnitPlayerControlled("target");
 	local _is_Enemy = ConRO:TarHostile();
