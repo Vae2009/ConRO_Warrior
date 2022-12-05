@@ -355,7 +355,7 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 			tinsert(ConRO.SuggestedSpells, _Execute);
 		end
 
-		if _Cleave_RDY and not _DeepWounds_DEBUFF and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) then
+		if _Cleave_RDY and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) then
 			tinsert(ConRO.SuggestedSpells, _Cleave);
 			_Cleave_RDY = false;
 		end
