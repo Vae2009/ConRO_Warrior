@@ -411,11 +411,11 @@ function ConRO.Warrior.ArmsDef(_, timeShift, currentSpell, gcd, tChosen)
 
 --Rotations	
 	if tChosen[Ability.ImpendingVictory.talentID] then
-		if _ImpendingVictory_RDY and _Player_Percent_Health <= 80 then
+		if _ImpendingVictory_RDY and _Player_Percent_Health <= 70 then
 			tinsert(ConRO.SuggestedDefSpells, _ImpendingVictory);
 		end
 	else
-		if _VictoryRush_RDY and _Victorious_BUFF and _Player_Percent_Health < 100 then
+		if _VictoryRush_RDY and _Victorious_BUFF and _Player_Percent_Health <= 80 then
 			tinsert(ConRO.SuggestedDefSpells, _VictoryRush);
 		end
 	end
@@ -631,11 +631,11 @@ function ConRO.Warrior.FuryDef(_, timeShift, currentSpell, gcd, tChosen)
 
 --Rotations	
 	if tChosen[Ability.ImpendingVictory.talentID] then
-		if _ImpendingVictory_RDY and _Player_Percent_Health <= 80 then
+		if _ImpendingVictory_RDY and _Player_Percent_Health <= 70 then
 			tinsert(ConRO.SuggestedDefSpells, _ImpendingVictory);
 		end
 	else
-		if _VictoryRush_RDY and _Victorious_BUFF and _Player_Percent_Health < 100 then
+		if _VictoryRush_RDY and _Victorious_BUFF and _Player_Percent_Health <= 80 then
 			tinsert(ConRO.SuggestedDefSpells, _VictoryRush);
 		end
 	end
@@ -828,6 +828,7 @@ function ConRO.Warrior.ProtectionDef(_, timeShift, currentSpell, gcd, tChosen)
 	local _DemoralizingShout, _DemoralizingShout_RDY = ConRO:AbilityReady(Ability.DemoralizingShout, timeShift);
 	local _VictoryRush, _VictoryRush_RDY = ConRO:AbilityReady(Ability.VictoryRush, timeShift);
 		local _Victorious_BUFF = ConRO:Aura(Buff.Victorious, timeShift);
+	local _ImpendingVictory, _ImpendingVictory_RDY = ConRO:AbilityReady(Ability.ImpendingVictory, timeShift);
 	local _IgnorePain, _IgnorePain_RDY = ConRO:AbilityReady(Ability.IgnorePain, timeShift);
 		local _IgnorePain_BUFF = ConRO:Aura(Buff.IgnorePain, timeShift);
 	local _SpellReflection, _SpellReflection_RDY = ConRO:AbilityReady(Ability.SpellReflection, timeShift);
@@ -842,8 +843,14 @@ function ConRO.Warrior.ProtectionDef(_, timeShift, currentSpell, gcd, tChosen)
 		tinsert(ConRO.SuggestedDefSpells, _SpellReflection);
 	end
 
-	if _VictoryRush_RDY and _Victorious_BUFF and _Player_Percent_Health < 100 then
-		tinsert(ConRO.SuggestedDefSpells, _VictoryRush);
+	if tChosen[Ability.ImpendingVictory.talentID] then
+		if _ImpendingVictory_RDY and _Player_Percent_Health <= 70 then
+			tinsert(ConRO.SuggestedDefSpells, _ImpendingVictory);
+		end
+	else
+		if _VictoryRush_RDY and _Victorious_BUFF and _Player_Percent_Health <= 80 then
+			tinsert(ConRO.SuggestedDefSpells, _VictoryRush);
+		end
 	end
 
 	if _LastStand_RDY and _Player_Percent_Health <= 40 then
