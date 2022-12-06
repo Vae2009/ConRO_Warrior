@@ -731,7 +731,7 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 
 		if _DemoralizingShout_RDY and tChosen[Passive.BoomingVoice.talentID] and ConRO:FullMode(_DemoralizingShout) then
 			tinsert(ConRO.SuggestedSpells, _DemoralizingShout);
-			_DemoralizingShout = false;
+			_DemoralizingShout_RDY = false;
 		end
 
 		if _ShieldCharge_RDY and ConRO:FullMode(_ShieldCharge) then
