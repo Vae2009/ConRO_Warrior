@@ -574,7 +574,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 
 		if _Onslaught_RDY and _Enrage_BUFF then
 			tinsert(ConRO.SuggestedSpells, _Onslaught);
-			_Onslaught = false;
+			_Onslaught_RDY = false;
 		end
 
 		if _RagingBlow_RDY and _RagingBlow_CHARGES >= 2 and not tChosen[Passive.Annihilator.talentID] then
