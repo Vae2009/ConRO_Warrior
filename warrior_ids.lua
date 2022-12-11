@@ -318,6 +318,7 @@ local ConRO_Warrior, ids = ...;
 		FuriousSlash = 202539,
 		IgnorePain = 190456,
 		Whirlwind = 85739,
+		RecklessAbandon = 396752,
 		SuddenDeath = 280776,
 		Recklessness = 1719,
 		Victorious = 32216,

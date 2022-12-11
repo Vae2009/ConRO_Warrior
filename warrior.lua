@@ -478,11 +478,12 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 	local _Onslaught, _Onslaught_RDY = ConRO:AbilityReady(Ability.Onslaught, timeShift);
 	local _Pummel, _Pummel_RDY = ConRO:AbilityReady(Ability.Pummel, timeShift);
 	local _Rampage, _Rampage_RDY = ConRO:AbilityReady(Ability.Rampage, timeShift);
+		local _RecklessAbandon_BUFF = ConRO:Aura(Buff.RecklessAbandon, timeShift);
 	local _RagingBlow, _RagingBlow_RDY = ConRO:AbilityReady(Ability.RagingBlow, timeShift);
 		local _RagingBlow_CHARGES = ConRO:SpellCharges(_RagingBlow);
 	local _Ravager, _Ravager_RDY = ConRO:AbilityReady(Ability.Ravager, timeShift);
 	local _Recklessness, _Recklessness_RDY, _Recklessness_CD = ConRO:AbilityReady(Ability.Recklessness, timeShift);
-		local _Recklessness_BUFF = ConRO:Aura(Buff.Recklessness, timeShift - .5);
+		local _Recklessness_BUFF = ConRO:Aura(Buff.Recklessness, timeShift);
 	local _ShatteringThrow, _ShatteringThrow_RDY = ConRO:AbilityReady(Ability.ShatteringThrow, timeShift);
 		local _IceBlock_BUFF = ConRO:UnitAura(45438, timeShift, 'target', 'HELPFUL');
 		local _DivineShield_BUFF = ConRO:UnitAura(642, timeShift, 'target', 'HELPFUL');
@@ -503,7 +504,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 		_Execute = _MassacreExecute;
 	end
 
-	if tChosen[Passive.RecklessAbandon.talentID] and _Recklessness_BUFF then
+	if tChosen[Passive.RecklessAbandon.talentID] and _RecklessAbandon_BUFF then
 		_Bloodthirst_RDY = _Bloodthirst_RDY and _BloodbathCD <= 0;
 		_Bloodthirst = _Bloodbath;
 
