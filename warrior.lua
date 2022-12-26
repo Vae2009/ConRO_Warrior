@@ -555,7 +555,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 			_SpearofBastion_RDY = false;
 		end
 
-		if _RagingBlow_RDY and tChosen[Passive.RecklessAbandon.talentID] and _RecklessAbandon_BUFF then
+		if _RagingBlow_RDY and tChosen[Passive.RecklessAbandon.talentID] and _RecklessAbandon_BUFF and not tChosen[Passive.Annihilator.talentID] then
 			tinsert(ConRO.SuggestedSpells, _RagingBlow);
 			_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
 		end
