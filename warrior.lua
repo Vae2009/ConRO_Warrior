@@ -101,7 +101,7 @@ end
 
 function ConRO.Warrior.Under10(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Warrior_Ability, ids.Warrior_Passive, ids.Warrior_Form, ids.Warrior_Buff, ids.Warrior_Debuff, ids.Warrior_PetAbility, ids.Warrior_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Warrior_Ability, ids.Warrior_Form, ids.Warrior_Buff, ids.Warrior_Debuff, ids.Warrior_PetAbility, ids.Warrior_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level	 = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -127,7 +127,7 @@ function ConRO.Warrior.Under10(_, timeShift, currentSpell, gcd, tChosen, pvpChos
 --Conditions
 	local _is_moving = ConRO:PlayerSpeed();
 	local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
-	local _target_in_10yrds = CheckInteractDistance("target", 3);
+	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 
 --Warnings
 
@@ -139,7 +139,7 @@ end
 
 function ConRO.Warrior.Under10Def(_, timeShift, currentSpell, gcd, tChosen, pvpChosen)
 	wipe(ConRO.SuggestedDefSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Warrior_Ability, ids.Warrior_Passive, ids.Warrior_Form, ids.Warrior_Buff, ids.Warrior_Debuff, ids.Warrior_PetAbility, ids.Warrior_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Warrior_Ability, ids.Warrior_Form, ids.Warrior_Buff, ids.Warrior_Debuff, ids.Warrior_PetAbility, ids.Warrior_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -165,7 +165,7 @@ function ConRO.Warrior.Under10Def(_, timeShift, currentSpell, gcd, tChosen, pvpC
 --Conditions
 	local _is_moving = ConRO:PlayerSpeed();
 	local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
-	local _target_in_10yrds = CheckInteractDistance("target", 3);
+	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 
 --Warnings
 
@@ -176,7 +176,7 @@ end
 
 function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 	wipe(ConRO.SuggestedSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Arms_Ability, ids.Arms_Passive, ids.Arms_Form, ids.Arms_Buff, ids.Arms_Debuff, ids.Arms_PetAbility, ids.Arms_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Arms_Ability, ids.Arms_Form, ids.Arms_Buff, ids.Arms_Debuff, ids.Arms_PetAbility, ids.Arms_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -202,7 +202,7 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 	local _Avatar, _Avatar_RDY = ConRO:AbilityReady(Ability.Avatar, timeShift);
 	local _BattleShout, _BattleShout_RDY = ConRO:AbilityReady(Ability.BattleShout, timeShift);
 	local _Bladestorm, _Bladestorm_RDY = ConRO:AbilityReady(Ability.Bladestorm, timeShift);
-	local _BladestormH, _BladestormH_RDY = ConRO:AbilityReady(Ability.BladestormH, timeShift);
+		 local _BladestormH, _BladestormH_RDY = ConRO:AbilityReady(Ability.BladestormH, timeShift);
 		local _MercilessBonegrinder_BUFF = ConRO:Aura(Buff.MercilessBonegrinder, timeShift);
 		local _Hurricane_BUFF = ConRO:Aura(Buff.Hurricane, timeShift);
 	local _Charge, _Charge_RDY = ConRO:AbilityReady(Ability.Charge, timeShift);
@@ -215,7 +215,7 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 	local _Execute, _Execute_RDY = ConRO:AbilityReady(Ability.Execute, timeShift);
 		local _SuddenDeath_BUFF	= ConRO:Aura(Buff.SuddenDeath, timeShift);
 		local _, _ExecutionersPrecision_COUNT = ConRO:Aura(Buff.ExecutionersPrecision, timeShift);
-		local _MassacreExecute, _MassacreExecute_RDY, _MassacreExecute_CD = ConRO:AbilityReady(Passive.MassacreExecute, timeShift);
+		local _MassacreExecute, _MassacreExecute_RDY, _MassacreExecute_CD = ConRO:AbilityReady(Ability.MassacreExecute, timeShift);
 	local _HeroicThrow, _HeroicThrow_RDY = ConRO:AbilityReady(Ability.HeroicThrow, timeShift);
 	local _MortalStrike, _MortalStrike_RDY = ConRO:AbilityReady(Ability.MortalStrike, timeShift);
 		local _DeepWounds_DEBUFF = ConRO:TargetAura(Debuff.DeepWounds, timeShift + 4);
@@ -245,13 +245,13 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 	local _can_execute = _Target_Percent_Health <= 20;
 
-	if tChosen[Passive.Massacre.talentID] then
+	if tChosen[Ability.Massacre.talentID] then
 		_can_execute = _Target_Percent_Health <= 35;
 		_Execute_RDY = _MassacreExecute_RDY;
 		_Execute = _MassacreExecute;
 	end
 
-	if tChosen[Passive.Hurricane.talentID] then
+	if tChosen[Ability.Hurricane.talentID] then
 		_Bladestorm, _Bladestorm_RDY = _BladestormH, _BladestormH_RDY;
 	end
 
@@ -273,7 +273,7 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 
 --Rotations	
 	for i = 1, 2, 1 do
-		if _ThunderClap_RDY and not _Rend_DEBUFF and _enemies_in_melee >= 2 and tChosen[Passive.BloodandThunder.talentID] and tChosen[Ability.Rend.talentID] then
+		if _ThunderClap_RDY and not _Rend_DEBUFF and _enemies_in_melee >= 2 and tChosen[Ability.BloodandThunder.talentID] and tChosen[Ability.Rend.talentID] then
 			tinsert(ConRO.SuggestedSpells, _ThunderClap);
 			_ThunderClap_RDY = false;
 		end
@@ -283,7 +283,7 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 			_Rend_DEBUFF = true;
 		end
 
-		if _Avatar_RDY and tChosen[Passive.WarlordsTorment.talentID] and ConRO:FullMode(_Avatar) then
+		if _Avatar_RDY and tChosen[Ability.WarlordsTorment.talentID] and ConRO:FullMode(_Avatar) then
 			tinsert(ConRO.SuggestedSpells, _Avatar);
 			_Avatar_RDY = false;
 		end
@@ -359,17 +359,17 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 					_Overpower_CHARGES = _Overpower_CHARGES - 1;
 				end
 
-				if _Whirlwind_RDY and tChosen[Passive.StormofSwords.talentID] then
+				if _Whirlwind_RDY and tChosen[Ability.StormofSwords.talentID] then
 					tinsert(ConRO.SuggestedSpells, _Whirlwind);
 					_Whirlwind_RDY = false;
 				end
 
-				if _ThunderClap_RDY and tChosen[Passive.BloodandThunder.talentID] then
+				if _ThunderClap_RDY and tChosen[Ability.BloodandThunder.talentID] then
 					tinsert(ConRO.SuggestedSpells, _ThunderClap);
 					_ThunderClap_RDY = false;
 				end
 
-				if _Slam_RDY and tChosen[Passive.CrushingForce.talentID] and _Rage >= _Rage_Max - 10 then
+				if _Slam_RDY and tChosen[Ability.CrushingForce.talentID] and _Rage >= _Rage_Max - 10 then
 					tinsert(ConRO.SuggestedSpells, _Slam);
 				end
 
@@ -388,7 +388,7 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 				_SpearofBastion_RDY = false;
 			end
 
-			if _Avatar_RDY and tChosen[Passive.BlademastersTorment.talentID] and ConRO:FullMode(_Avatar) then
+			if _Avatar_RDY and tChosen[Ability.BlademastersTorment.talentID] and ConRO:FullMode(_Avatar) then
 				tinsert(ConRO.SuggestedSpells, _Avatar);
 				_Avatar_RDY = false;
 			end
@@ -398,7 +398,7 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 				_Cleave_RDY = false;
 			end
 
-			if _Whirlwind_RDY and tChosen[Passive.StormofSwords.talentID] and _MercilessBonegrinder_BUFF then
+			if _Whirlwind_RDY and tChosen[Ability.StormofSwords.talentID] and _MercilessBonegrinder_BUFF then
 				tinsert(ConRO.SuggestedSpells, _Whirlwind);
 				_Whirlwind_RDY = false;
 			end
@@ -437,7 +437,7 @@ end
 
 function ConRO.Warrior.ArmsDef(_, timeShift, currentSpell, gcd, tChosen)
 	wipe(ConRO.SuggestedDefSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Arms_Ability, ids.Arms_Passive, ids.Arms_Form, ids.Arms_Buff, ids.Arms_Debuff, ids.Arms_PetAbility, ids.Arms_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Arms_Ability, ids.Arms_Form, ids.Arms_Buff, ids.Arms_Debuff, ids.Arms_PetAbility, ids.Arms_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -468,7 +468,7 @@ function ConRO.Warrior.ArmsDef(_, timeShift, currentSpell, gcd, tChosen)
 --Conditions
 	local _is_moving = ConRO:PlayerSpeed();
 	local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
-	local _target_in_10yrds = CheckInteractDistance("target", 3);
+	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 
 --Rotations	
 	if _IgnorePain_RDY and _Rage >= _Rage_Max - 25 then
@@ -501,7 +501,7 @@ end
 
 function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 	wipe(ConRO.SuggestedSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Fury_Ability, ids.Fury_Passive, ids.Fury_Form, ids.Fury_Buff, ids.Fury_Debuff, ids.Fury_PetAbility, ids.Fury_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Fury_Ability, ids.Fury_Form, ids.Fury_Buff, ids.Fury_Debuff, ids.Fury_PetAbility, ids.Fury_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -526,12 +526,12 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 --Abilities	
 	local _Avatar, _Avatar_RDY = ConRO:AbilityReady(Ability.Avatar, timeShift);
 	local _BattleShout, _BattleShout_RDY = ConRO:AbilityReady(Ability.BattleShout, timeShift);
-	local _Bloodbath, _, _BloodbathCD = ConRO:AbilityReady(Passive.Bloodbath, timeShift);
+	local _Bloodbath, _, _BloodbathCD = ConRO:AbilityReady(Ability.Bloodbath, timeShift);
 	local _Bloodthirst, _Bloodthirst_RDY = ConRO:AbilityReady(Ability.Bloodthirst, timeShift + 0.5);
 		local _Enrage_BUFF = ConRO:Aura(Buff.Enrage, timeShift);
 	local _Charge, _Charge_RDY = ConRO:AbilityReady(Ability.Charge, timeShift);
 		local _Charge_RANGE = ConRO:IsSpellInRange(Ability.Charge, 'target');
-	local _CrushingBlow, _, _CrushingBlowCD = ConRO:AbilityReady(Passive.CrushingBlow, timeShift);
+	local _CrushingBlow, _, _CrushingBlowCD = ConRO:AbilityReady(Ability.CrushingBlow, timeShift);
 	local _Execute, _Execute_RDY = ConRO:AbilityReady(Ability.Execute, timeShift);
 		local _SuddenDeath_BUFF = ConRO:Aura(Buff.SuddenDeath, timeShift);
 	local _MassacreExecute, _MassacreExecute_RDY = ConRO:AbilityReady(Ability.MassacreExecute, timeShift);
@@ -560,13 +560,13 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 	local _can_execute = _Target_Percent_Health <= 20;
 
-	if tChosen[Passive.Massacre.talentID] then
+	if tChosen[Ability.Massacre.talentID] then
 		_can_execute = _Target_Percent_Health <= 35;
 		_Execute_RDY = _MassacreExecute_RDY;
 		_Execute = _MassacreExecute;
 	end
 
-	if tChosen[Passive.RecklessAbandon.talentID] and _RecklessAbandon_BUFF then
+	if tChosen[Ability.RecklessAbandon.talentID] and _RecklessAbandon_BUFF then
 		_Bloodthirst_RDY = _Bloodthirst_RDY and _BloodbathCD <= 0;
 		_Bloodthirst = _Bloodbath;
 
@@ -581,7 +581,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 	ConRO:AbilityRaidBuffs(_BattleShout, _BattleShout_RDY and not ConRO:RaidBuff(Buff.BattleShout));
 	ConRO:AbilityMovement(_Charge, _Charge_RDY and _Charge_RANGE);
 
-	ConRO:AbilityBurst(_Avatar, _Avatar_RDY and _Recklessness_BUFF and ((_Enrage_BUFF and tChosen[Passive.TitansTorment.talentID]) or not tChosen[Passive.TitansTorment.talentID]) and ConRO:BurstMode(_Avatar));
+	ConRO:AbilityBurst(_Avatar, _Avatar_RDY and _Recklessness_BUFF and ((_Enrage_BUFF and tChosen[Ability.TitansTorment.talentID]) or not tChosen[Ability.TitansTorment.talentID]) and ConRO:BurstMode(_Avatar));
 	ConRO:AbilityBurst(_Recklessness, _Recklessness_RDY and ConRO:BurstMode(_Recklessness));
 	ConRO:AbilityBurst(_SpearofBastion, _SpearofBastion_RDY and _in_combat and ConRO:BurstMode(_SpearofBastion));
 	ConRO:AbilityBurst(_Ravager, _Ravager_RDY and ConRO:BurstMode(_Ravager));
@@ -596,12 +596,12 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 			_Ravager_RDY = false;
 		end
 
-		if _Whirlwind_RDY and tChosen[Passive.ImprovedWhirlwind.talentID] and not _Whirlwind_BUFF and (ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) then
+		if _Whirlwind_RDY and tChosen[Ability.ImprovedWhirlwind.talentID] and not _Whirlwind_BUFF and (ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) then
 			tinsert(ConRO.SuggestedSpells, _Whirlwind);
 			_Whirlwind_BUFF = true;
 		end
 
-		if _Avatar_RDY and tChosen[Passive.BerserkersTorment.talentID] and ConRO:FullMode(_Avatar) then
+		if _Avatar_RDY and tChosen[Ability.BerserkersTorment.talentID] and ConRO:FullMode(_Avatar) then
 			tinsert(ConRO.SuggestedSpells, _Avatar);
 			_Avatar_RDY = false;
 		end
@@ -611,7 +611,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 			_Recklessness_RDY = false;
 		end
 
-		if _Avatar_RDY and _Recklessness_BUFF and (_Enrage_BUFF or tChosen[Passive.TitansTorment.talentID]) and ConRO:FullMode(_Avatar) then
+		if _Avatar_RDY and _Recklessness_BUFF and (_Enrage_BUFF or tChosen[Ability.TitansTorment.talentID]) and ConRO:FullMode(_Avatar) then
 			tinsert(ConRO.SuggestedSpells, _Avatar);
 			_Avatar_RDY = false;
 		end
@@ -626,7 +626,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 			_ThunderousRoar_RDY = false;
 		end
 
-		if _RagingBlow_RDY and tChosen[Passive.RecklessAbandon.talentID] and _RecklessAbandon_BUFF and not tChosen[Passive.Annihilator.talentID] then
+		if _RagingBlow_RDY and tChosen[Ability.RecklessAbandon.talentID] and _RecklessAbandon_BUFF and not tChosen[Ability.Annihilator.talentID] then
 			tinsert(ConRO.SuggestedSpells, _RagingBlow);
 			_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
 		end
@@ -641,27 +641,27 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 			_Execute_RDY = false;
 		end
 
-		if _Onslaught_RDY and (_Enrage_BUFF or tChosen[Passive.Tenderize.talentID]) then
+		if _Onslaught_RDY and (_Enrage_BUFF or tChosen[Ability.Tenderize.talentID]) then
 			tinsert(ConRO.SuggestedSpells, _Onslaught);
 			_Onslaught_RDY = false;
 		end
 
-		if _OdynsFury_RDY and (_Enrage_BUFF or tChosen[Passive.TitanicRage.talentID]) then
+		if _OdynsFury_RDY and (_Enrage_BUFF or tChosen[Ability.TitanicRage.talentID]) then
 			tinsert(ConRO.SuggestedSpells, _OdynsFury);
 			_OdynsFury_RDY = false;
 		end
 
-		if _Rampage_RDY and tChosen[Passive.RecklessAbandon.talentID] and not _RecklessAbandon_BUFF then
+		if _Rampage_RDY and tChosen[Ability.RecklessAbandon.talentID] and not _RecklessAbandon_BUFF then
 			tinsert(ConRO.SuggestedSpells, _Rampage);
 			_Rampage_RDY = false;
 		end
 
-		if _Bloodthirst_RDY and tChosen[Passive.RecklessAbandon.talentID] and _RecklessAbandon_BUFF then
+		if _Bloodthirst_RDY and tChosen[Ability.RecklessAbandon.talentID] and _RecklessAbandon_BUFF then
 			tinsert(ConRO.SuggestedSpells, _Bloodthirst);
 			_Bloodthirst_RDY = false;
 		end
 
-		if _RagingBlow_RDY and _RagingBlow_CHARGES >= 1 and not tChosen[Passive.Annihilator.talentID] then
+		if _RagingBlow_RDY and _RagingBlow_CHARGES >= 1 and not tChosen[Ability.Annihilator.talentID] then
 			tinsert(ConRO.SuggestedSpells, _RagingBlow);
 			_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
 		end
@@ -671,7 +671,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 			_Bloodthirst_RDY = false;
 		end
 
-		if _Slam_RDY and tChosen[Passive.StormofSwords.talentID] then
+		if _Slam_RDY and tChosen[Ability.StormofSwords.talentID] then
 			tinsert(ConRO.SuggestedSpells, _Slam);
 			_Slam_RDY = false;
 		end
@@ -685,7 +685,7 @@ end
 
 function ConRO.Warrior.FuryDef(_, timeShift, currentSpell, gcd, tChosen)
 	wipe(ConRO.SuggestedDefSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Fury_Ability, ids.Fury_Passive, ids.Fury_Form, ids.Fury_Buff, ids.Fury_Debuff, ids.Fury_PetAbility, ids.Fury_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Fury_Ability, ids.Fury_Form, ids.Fury_Buff, ids.Fury_Debuff, ids.Fury_PetAbility, ids.Fury_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -736,7 +736,7 @@ end
 
 function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 	wipe(ConRO.SuggestedSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Prot_Ability, ids.Prot_Passive, ids.Prot_Form, ids.Prot_Buff, ids.Prot_Debuff, ids.Prot_PetAbility, ids.Prot_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Prot_Ability, ids.Prot_Form, ids.Prot_Buff, ids.Prot_Debuff, ids.Prot_PetAbility, ids.Prot_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -800,7 +800,7 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 	ConRO:AbilityMovement(_Charge, _Charge_RDY and _Charge_RANGE);
 
 	ConRO:AbilityBurst(_Avatar, _Avatar_RDY and _is_Enemy and ConRO:BurstMode(_Avatar));
-	ConRO:AbilityBurst(_DemoralizingShout, _DemoralizingShout_RDY and tChosen[Passive.BoomingVoice.talentID] and _is_Enemy and ConRO:BurstMode(_DemoralizingShout));
+	ConRO:AbilityBurst(_DemoralizingShout, _DemoralizingShout_RDY and tChosen[Ability.BoomingVoice.talentID] and _is_Enemy and ConRO:BurstMode(_DemoralizingShout));
 	ConRO:AbilityBurst(_Ravager, _Ravager_RDY and _is_Enemy and ConRO:BurstMode(_Ravager));
 	ConRO:AbilityBurst(_ShieldCharge, _ShieldCharge_RDY and ConRO:BurstMode(_ShieldCharge));
 	ConRO:AbilityBurst(_SpearofBastion, _SpearofBastion_RDY and _in_combat and ConRO:BurstMode(_SpearofBastion));
@@ -814,7 +814,7 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 			_Avatar_RDY = false;
 		end
 
-		if _DemoralizingShout_RDY and tChosen[Passive.BoomingVoice.talentID] and _target_in_10yrds and ConRO:FullMode(_DemoralizingShout) then
+		if _DemoralizingShout_RDY and tChosen[Ability.BoomingVoice.talentID] and _target_in_10yrds and ConRO:FullMode(_DemoralizingShout) then
 			tinsert(ConRO.SuggestedSpells, _DemoralizingShout);
 			_DemoralizingShout_RDY = false;
 		end
@@ -849,7 +849,7 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 			end
 		end
 
-		if _ThunderClap_RDY and _Avatar_BUFF and tChosen[Passive.UnstoppableForce.talentID] and _enemies_in_melee >= 2 then
+		if _ThunderClap_RDY and _Avatar_BUFF and tChosen[Ability.UnstoppableForce.talentID] and _enemies_in_melee >= 2 then
 			tinsert(ConRO.SuggestedSpells, _ThunderClap);
 			_ThunderClap_RDY = false;
 		end
@@ -874,7 +874,7 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 			_Revenge_BUFF = false;
 		end
 
-		if _Devastate_RDY and not tChosen[Passive.Devastator.talentID] then
+		if _Devastate_RDY and not tChosen[Ability.Devastator.talentID] then
 			tinsert(ConRO.SuggestedSpells, _Devastate);
 		end
 	end
@@ -883,7 +883,7 @@ end
 
 function ConRO.Warrior.ProtectionDef(_, timeShift, currentSpell, gcd, tChosen)
 	wipe(ConRO.SuggestedDefSpells)
-	local Racial, Ability, Passive, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Prot_Ability, ids.Prot_Passive, ids.Prot_Form, ids.Prot_Buff, ids.Prot_Debuff, ids.Prot_PetAbility, ids.Prot_PvPTalent, ids.Glyph;
+	local Racial, Ability, Form, Buff, Debuff, PetAbility, PvPTalent, Glyph = ids.Racial, ids.Prot_Ability, ids.Prot_Form, ids.Prot_Buff, ids.Prot_Debuff, ids.Prot_PetAbility, ids.Prot_PvPTalent, ids.Glyph;
 --Info
 	local _Player_Level = UnitLevel("player");
 	local _Player_Percent_Health = ConRO:PercentHealth('player');
@@ -916,7 +916,7 @@ function ConRO.Warrior.ProtectionDef(_, timeShift, currentSpell, gcd, tChosen)
 --Conditions
 	local _is_moving = ConRO:PlayerSpeed();
 	local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
-	local _target_in_10yrds = CheckInteractDistance("target", 3);
+	local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
 
 --Rotations	
 	if _SpellReflection_RDY and (ConRO:BossCast() or ConRO:Interrupt()) and ConRO:TarYou() then
