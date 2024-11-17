@@ -114,6 +114,7 @@ local _Target_Percent_Health = ConRO:PercentHealth('target');
 local _Rage, _Rage_Max = ConRO:PlayerPower('Rage');
 
 --Conditions
+local _Queue = 0;
 local _is_moving = ConRO:PlayerSpeed();
 local _enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
 local _enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
@@ -142,6 +143,7 @@ function ConRO:Stats()
 
 	_Rage, _Rage_Max = ConRO:PlayerPower('Rage');
 
+	_Queue = 0;
 	_is_moving = ConRO:PlayerSpeed();
 	_enemies_in_melee, _target_in_melee = ConRO:Targets("Melee");
 	_enemies_in_10yrds, _target_in_10yrds = ConRO:Targets("10");
@@ -537,6 +539,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 
 --Abilities	
 	local _Avatar, _Avatar_RDY = ConRO:AbilityReady(Ability.Avatar, timeShift);
+		local _Avatar_BUFF = ConRO:Aura(Buff.Avatar, timeShift);
 	local _BattleShout, _BattleShout_RDY = ConRO:AbilityReady(Ability.BattleShout, timeShift);
 	local _Bladestorm, _Bladestorm_RDY = ConRO:AbilityReady(Ability.Bladestorm, timeShift);
 	local _Bloodbath, _Bloodbath_RDY = ConRO:AbilityReady(Ability.Bloodbath, timeShift);
@@ -586,146 +589,218 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 	ConRO:AbilityMovement(_Charge, _Charge_RDY and _Charge_RANGE);
 
 	ConRO:AbilityBurst(_Avatar, _Avatar_RDY and _Recklessness_BUFF and ConRO:BurstMode(_Avatar));
-	ConRO:AbilityBurst(_ChampionsSpear, _ChampionsSpear_RDY and _Enrage_BUFF and ConRO:BurstMode(_ChampionsSpear));
-	ConRO:AbilityBurst(_Ravager, _Ravager_RDY and ConRO:BurstMode(_Ravager));
+	ConRO:AbilityBurst(_Bladestorm, _Bladestorm_RDY and _Enrage_BUFF and _Avatar_BUFF and ConRO:BurstMode(_Bladestorm));
+	ConRO:AbilityBurst(_ChampionsSpear, _ChampionsSpear_RDY and _Enrage_BUFF and _Avatar_BUFF and ConRO:BurstMode(_ChampionsSpear));
+	ConRO:AbilityBurst(_Ravager, _Ravager_RDY and _Enrage_BUFF and _Avatar_BUFF and ConRO:BurstMode(_Ravager));
 	ConRO:AbilityBurst(_Recklessness, _Recklessness_RDY and ConRO:BurstMode(_Recklessness));
-	ConRO:AbilityBurst(_ThunderousRoar, _ThunderousRoar_RDY and _Enrage_BUFF and ConRO:BurstMode(_ThunderousRoar));
+	ConRO:AbilityBurst(_ThunderousRoar, _ThunderousRoar_RDY and _Enrage_BUFF and _Avatar_BUFF and ConRO:BurstMode(_ThunderousRoar));
 
 --Warnings
 
 
 --Rotations
-	for i = 1, 2, 1 do
-		if _ThunderBlast_RDY and ConRO:IsOverride(_ThunderClap) == _ThunderBlast and _ThunderBlast_BUFF and _Avatar_RDY then
-			tinsert(ConRO.SuggestedSpells, _ThunderBlast);
-			_ThunderBlast_RDY = false;
-		end
+	repeat
+		while(true) do
+			if _ThunderBlast_RDY and ConRO:IsOverride(_ThunderClap) == _ThunderBlast and _ThunderBlast_BUFF and _Avatar_RDY then
+				tinsert(ConRO.SuggestedSpells, _ThunderBlast);
+				_ThunderBlast_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Recklessness_RDY and ConRO:FullMode(_Recklessness) then
-			tinsert(ConRO.SuggestedSpells, _Recklessness);
-			_Recklessness_RDY = false;
-		end
+			if _Recklessness_RDY and ConRO:FullMode(_Recklessness) then
+				tinsert(ConRO.SuggestedSpells, _Recklessness);
+				_Recklessness_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Avatar_RDY and ConRO:FullMode(_Avatar) then
-			tinsert(ConRO.SuggestedSpells, _Avatar);
-			_Avatar_RDY = false;
-		end
+			if _Avatar_RDY and ConRO:FullMode(_Avatar) then
+				tinsert(ConRO.SuggestedSpells, _Avatar);
+				_Avatar_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Rampage_RDY and not _Enrage_BUFF then
-			tinsert(ConRO.SuggestedSpells, _Rampage);
-			_Rampage_RDY = false;
-		end
+			if _Rampage_RDY and not _Enrage_BUFF then
+				tinsert(ConRO.SuggestedSpells, _Rampage);
+				_Rampage_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Ravager_RDY and ConRO:FullMode(_Ravager) then
-			tinsert(ConRO.SuggestedSpells, _Ravager);
-			_Ravager_RDY = false;
-		end
+			if _ThunderBlast_RDY and ConRO:IsOverride(_ThunderClap) == _ThunderBlast and _ThunderBlast_BUFF and _Enrage_BUFF then
+				tinsert(ConRO.SuggestedSpells, _ThunderBlast);
+				_ThunderBlast_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ThunderBlast_RDY and ConRO:IsOverride(_ThunderClap) == _ThunderBlast and _ThunderBlast_BUFF and _Enrage_BUFF then
-			tinsert(ConRO.SuggestedSpells, _ThunderBlast);
-			_ThunderBlast_RDY = false;
-		end
+			if _ThunderClap_RDY and tChosen[Ability.ImprovedWhirlwind.talentID] and not _Whirlwind_BUFF and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) and ConRO:HeroSpec(HeroSpec.MountainThane) and tChosen[Ability.CrashingThunder.talentID] then
+				tinsert(ConRO.SuggestedSpells, _ThunderClap);
+				_ThunderClap_BUFF = true;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ThunderClap_RDY and tChosen[Ability.ImprovedWhirlwind.talentID] and not _Whirlwind_BUFF and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) then
-			tinsert(ConRO.SuggestedSpells, _ThunderClap);
-			_ThunderClap_BUFF = true;
-		end
+			if _ThunderousRoar_RDY and _Enrage_BUFF and ConRO:FullMode(_ChampionsSpear) then
+				tinsert(ConRO.SuggestedSpells, _ThunderousRoar);
+				_ThunderousRoar_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ThunderousRoar_RDY and _Enrage_BUFF and ConRO:FullMode(_ChampionsSpear) then
-			tinsert(ConRO.SuggestedSpells, _ThunderousRoar);
-			_ThunderousRoar_RDY = false;
-		end
+			if _Ravager_RDY and ConRO:FullMode(_Ravager) then
+				tinsert(ConRO.SuggestedSpells, _Ravager);
+				_Ravager_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ChampionsSpear_RDY and _Enrage_BUFF and ConRO:FullMode(_ChampionsSpear) then
-			tinsert(ConRO.SuggestedSpells, _ChampionsSpear);
-			_ChampionsSpear_RDY = false;
-		end
+			if _ChampionsSpear_RDY and _Enrage_BUFF and ConRO:FullMode(_ChampionsSpear) then
+				tinsert(ConRO.SuggestedSpells, _ChampionsSpear);
+				_ChampionsSpear_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _OdynsFury_RDY and (_Enrage_BUFF or tChosen[Ability.TitanicRage.talentID]) then
-			tinsert(ConRO.SuggestedSpells, _OdynsFury);
-			_OdynsFury_RDY = false;
-		end
+			if _Bladestorm_RDY and _Avatar_BUFF and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 3) or ConRO_AoEButton:IsVisible()) and ConRO:FullMode(_Bladestorm) then
+				tinsert(ConRO.SuggestedSpells, _Bladestorm);
+				_Bladestorm_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Whirlwind_RDY and tChosen[Ability.ImprovedWhirlwind.talentID] and not _Whirlwind_BUFF and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) and ConRO:HeroSpec(HeroSpec.MountainThane) and tChosen[Ability.CrashingThunder.talentID] then
-			tinsert(ConRO.SuggestedSpells, _Whirlwind);
-			_Whirlwind_BUFF = true;
-		end
+			if _OdynsFury_RDY and (_Enrage_BUFF or tChosen[Ability.TitanicRage.talentID]) then
+				tinsert(ConRO.SuggestedSpells, _OdynsFury);
+				_OdynsFury_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Execute_RDY and (_can_Execute or _SuddenDeath_BUFF) and (_MarkedforExecution_COUNT >= 3 or _AshenJuggernaut_DUR < 2) then
-			tinsert(ConRO.SuggestedSpells, _Execute);
-			_Execute_RDY = false;
-		end
+			if _Whirlwind_RDY and tChosen[Ability.ImprovedWhirlwind.talentID] and not _Whirlwind_BUFF and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) then
+				tinsert(ConRO.SuggestedSpells, _Whirlwind);
+				_Whirlwind_BUFF = true;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Bladestorm_RDY and _Enrage_BUFF and ConRO:FullMode(_Bladestorm) then
-			tinsert(ConRO.SuggestedSpells, _Bladestorm);
-			_Bladestorm_RDY = false;
-		end
+			if _Execute_RDY and (_can_Execute or _SuddenDeath_BUFF) and (_MarkedforExecution_COUNT >= 3 or _AshenJuggernaut_DUR < 2) then
+				tinsert(ConRO.SuggestedSpells, _Execute);
+				_Execute_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _CrushingBlow_RDY and ConRO:IsOverride(_RagingBlow) == _CrushingBlow and _RagingBlow_CHARGES >= 1 then
-			tinsert(ConRO.SuggestedSpells, _CrushingBlow);
-			_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
-		end
+			if _Bladestorm_RDY and _Enrage_BUFF and ConRO:FullMode(_Bladestorm) then
+				tinsert(ConRO.SuggestedSpells, _Bladestorm);
+				_Bladestorm_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Onslaught_RDY then
-			tinsert(ConRO.SuggestedSpells, _Onslaught);
-			_Onslaught_RDY = false;
-		end
+			if _Rampage_RDY and tChosen[Ability.AngerManagement.talentID] then
+				tinsert(ConRO.SuggestedSpells, _Rampage);
+				_Rampage_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Bloodbath_RDY and ConRO:IsOverride(_Bloodthirst) == _Bloodbath and (_Rage < 100 or (tChosen[Ability.ViciousContempt.talentID] and _Target_Percent_Health < 35)) then
-			tinsert(ConRO.SuggestedSpells, _Bloodbath);
-			_Bloodbath_RDY = false;
-		end
+			if _CrushingBlow_RDY and ConRO:IsOverride(_RagingBlow) == _CrushingBlow and _RagingBlow_CHARGES >= 1 then
+				tinsert(ConRO.SuggestedSpells, _CrushingBlow);
+				_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _RagingBlow_RDY and _RagingBlow_CHARGES >= 1 and _Rage < 100 and not _Opportunist_BUFF and ConRO:HeroSpec(HeroSpec.Slayer) then
-			tinsert(ConRO.SuggestedSpells, _RagingBlow);
-			_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
-		end
+			if _Onslaught_RDY then
+				tinsert(ConRO.SuggestedSpells, _Onslaught);
+				_Onslaught_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _RagingBlow_RDY and _RagingBlow_CHARGES >= 1 and _Rage < 100 and ConRO:HeroSpec(HeroSpec.MountainThane) then
-			tinsert(ConRO.SuggestedSpells, _RagingBlow);
-			_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
-		end
+			if _Bloodbath_RDY and ConRO:IsOverride(_Bloodthirst) == _Bloodbath and (_Rage < 100 or (tChosen[Ability.ViciousContempt.talentID] and _Target_Percent_Health < 35)) then
+				tinsert(ConRO.SuggestedSpells, _Bloodbath);
+				_Bloodbath_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Rampage_RDY and tChosen[Ability.RecklessAbandon.talentID] and not _RecklessAbandon_BUFF then
-			tinsert(ConRO.SuggestedSpells, _Rampage);
-			_Rampage_RDY = false;
-		end
+			if _RagingBlow_RDY and _RagingBlow_CHARGES >= 1 and _Rage < 100 and not _Opportunist_BUFF and ConRO:HeroSpec(HeroSpec.Slayer) then
+				tinsert(ConRO.SuggestedSpells, _RagingBlow);
+				_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Execute_RDY and (_can_Execute or _SuddenDeath_BUFF) and _MarkedforExecution_BUFF then
-			tinsert(ConRO.SuggestedSpells, _Execute);
-			_Execute_RDY = false;
-		end
+			if _RagingBlow_RDY and _RagingBlow_CHARGES >= 1 and _Rage < 100 and ConRO:HeroSpec(HeroSpec.MountainThane) then
+				tinsert(ConRO.SuggestedSpells, _RagingBlow);
+				_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _RagingBlow_RDY and _RagingBlow_CHARGES >= 1 and not tChosen[Ability.RecklessAbandon.talentID] then
-			tinsert(ConRO.SuggestedSpells, _RagingBlow);
-			_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
-		end
+			if _Rampage_RDY and tChosen[Ability.RecklessAbandon.talentID] and not _RecklessAbandon_BUFF then
+				tinsert(ConRO.SuggestedSpells, _Rampage);
+				_Rampage_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Execute_RDY and (_can_Execute or _SuddenDeath_BUFF) and ConRO:HeroSpec(HeroSpec.MountainThane) then
-			tinsert(ConRO.SuggestedSpells, _Execute);
-			_Execute_RDY = false;
-		end
+			if _Execute_RDY and (_can_Execute or _SuddenDeath_BUFF) and _MarkedforExecution_BUFF then
+				tinsert(ConRO.SuggestedSpells, _Execute);
+				_Execute_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Bloodthirst_RDY then
-			tinsert(ConRO.SuggestedSpells, _Bloodthirst);
-			_Bloodthirst_RDY = false;
-		end
+			if _RagingBlow_RDY and _RagingBlow_CHARGES >= 1 and not tChosen[Ability.RecklessAbandon.talentID] then
+				tinsert(ConRO.SuggestedSpells, _RagingBlow);
+				_RagingBlow_CHARGES = _RagingBlow_CHARGES - 1;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ThunderClap_RDY and ConRO:HeroSpec(HeroSpec.MountainThane) then
-			tinsert(ConRO.SuggestedSpells, _ThunderClap);
-			_ThunderClap_RDY = false;
-		end
+			if _Execute_RDY and (_can_Execute or _SuddenDeath_BUFF) and ConRO:HeroSpec(HeroSpec.MountainThane) then
+				tinsert(ConRO.SuggestedSpells, _Execute);
+				_Execute_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Whirlwind_RDY and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) and not ConRO:HeroSpec(HeroSpec.MountainThane) then
-			tinsert(ConRO.SuggestedSpells, _Whirlwind);
-			_Whirlwind_BUFF = true;
-		end
+			if _Bloodthirst_RDY then
+				tinsert(ConRO.SuggestedSpells, _Bloodthirst);
+				_Bloodthirst_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Slam_RDY and not ConRO:HeroSpec(HeroSpec.MountainThane) then
-			tinsert(ConRO.SuggestedSpells, _Slam);
+			if _ThunderClap_RDY and ConRO:HeroSpec(HeroSpec.MountainThane) then
+				tinsert(ConRO.SuggestedSpells, _ThunderClap);
+				_ThunderClap_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _Whirlwind_RDY and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) and not ConRO:HeroSpec(HeroSpec.MountainThane) then
+				tinsert(ConRO.SuggestedSpells, _Whirlwind);
+				_Whirlwind_BUFF = true;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _Slam_RDY and not ConRO:HeroSpec(HeroSpec.MountainThane) then
+				tinsert(ConRO.SuggestedSpells, _Slam);
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			_Queue = _Queue + 1;
+			break;
 		end
-	end
-	return nil;
+	until _Queue > 3;
+return nil;
 end
 
 function ConRO.Warrior.FuryDef(_, timeShift, currentSpell, gcd, tChosen)

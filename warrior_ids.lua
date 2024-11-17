@@ -362,6 +362,7 @@ local ConRO_Warrior, ids = ...;
 	}
 	ids.Fury_Buff = {
 		AshenJuggernaut = 392537,
+		Avatar = 107574,
 		BattleShout = 6673,
 		ColossalMight = 440989,
 		Enrage = 184362,
