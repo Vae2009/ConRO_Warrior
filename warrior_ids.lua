@@ -169,6 +169,7 @@ local ConRO_Warrior, ids = ...;
 		ReaptheStorm = {spellID = 444775, talentID = 117406},
 		SlayersMalice = {spellID = 444779, talentID = 117398},
 		UnrelentingOnslaught = {spellID = 444780, talentID = 117417},
+			Bladestorm_UO = {spellID = 446035, talentID = 117417},
 	}
 	ids.Arms_Form = {
 		DefensiveStance = 197690,
@@ -207,7 +208,7 @@ local ConRO_Warrior, ids = ...;
 		BattleShout = {spellID = 6673},
 		BerserkerRage = {spellID = 18499},
 		Charge = {spellID = 100},
-		Execute = {spellID = 163201},
+		Execute = {spellID = 5308},
 		Hamstring = {spellID = 1715},
 		HeroicThrow = {spellID = 57755},
 		Pummel = {spellID = 6552},
@@ -356,6 +357,7 @@ local ConRO_Warrior, ids = ...;
 		ReaptheStorm = {spellID = 444775, talentID = 117406},
 		SlayersMalice = {spellID = 444779, talentID = 117398},
 		UnrelentingOnslaught = {spellID = 444780, talentID = 117417},
+			Bladestorm_UO = {spellID = 446035, talentID = 117417},
 	}
 	ids.Fury_Form = {
 

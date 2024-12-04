@@ -545,6 +545,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 	local _Bloodbath, _Bloodbath_RDY = ConRO:AbilityReady(Ability.Bloodbath, timeShift);
 	local _Bloodthirst, _Bloodthirst_RDY = ConRO:AbilityReady(Ability.Bloodthirst, timeShift + 0.5);
 		local _Enrage_BUFF = ConRO:Aura(Buff.Enrage, timeShift);
+	local _ChampionsSpear, _ChampionsSpear_RDY = ConRO:AbilityReady(Ability.ChampionsSpear, timeShift);
 	local _Charge, _Charge_RDY = ConRO:AbilityReady(Ability.Charge, timeShift);
 		local _Charge_RANGE = ConRO:IsSpellInRange(Ability.Charge, 'target');
 	local _CrushingBlow, _CrushingBlow_RDY = ConRO:AbilityReady(Ability.CrushingBlow, timeShift);
@@ -567,7 +568,6 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 	local _ShatteringThrow, _ShatteringThrow_RDY = ConRO:AbilityReady(Ability.ShatteringThrow, timeShift);
 		local _IceBlock_BUFF = ConRO:UnitAura(45438, timeShift, 'target', 'HELPFUL');
 		local _DivineShield_BUFF = ConRO:UnitAura(642, timeShift, 'target', 'HELPFUL');
-	local _ChampionsSpear, _ChampionsSpear_RDY = ConRO:AbilityReady(Ability.ChampionsSpear, timeShift);
 	local _ThunderClap, _ThunderClap_RDY = ConRO:AbilityReady(Ability.ThunderClap, timeShift);
 	local _ThunderBlast, _ThunderBlast_RDY = ConRO:AbilityReady(Ability.ThunderBlast, timeShift);
 		local _ThunderBlast_BUFF = ConRO:Aura(Buff.ThunderBlast, timeShift);
@@ -579,6 +579,10 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 	if tChosen[Ability.Massacre.talentID] then
 		_can_Execute = _Target_Percent_Health <= 35;
 		_Execute, _Execute_RDY = ConRO:AbilityReady(Ability.MassacreExecute, timeShift);
+	end
+
+	if ConRO:HeroSpec(HeroSpec.Slayer) and tChosen[Ability.UnrelentingOnslaught.talentID] then
+		_Bladestorm, _Bladestorm_RDY = ConRO:AbilityReady(Ability.Bladestorm_UO, timeShift);
 	end
 
 --Indicators	
