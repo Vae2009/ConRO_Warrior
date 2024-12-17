@@ -204,7 +204,7 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 	local _Charge, _Charge_RDY = ConRO:AbilityReady(Ability.Charge, timeShift);
 		local _Charge_RANGE = ConRO:Targets(Ability.Charge);
 	local _Cleave, _Cleave_RDY = ConRO:AbilityReady(Ability.Cleave, timeShift);
-	local _ColossusSmash, _ColossusSmash_RDY = ConRO:AbilityReady(Ability.ColossusSmash, timeShift);
+	local _ColossusSmash, _ColossusSmash_RDY, _ColossusSmash_CD = ConRO:AbilityReady(Ability.ColossusSmash, timeShift);
 		local _ColossusSmash_DEBUFF = ConRO:TargetAura(Debuff.ColossusSmash, timeShift);
 		local _InForTheKill_BUFF = ConRO:Aura(Buff.InForTheKill, timeShift);
 		local _TestofMight_BUFF = ConRO:Aura(Buff.TestofMight, timeShift);
@@ -249,6 +249,10 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 		_ColossusSmash, _ColossusSmash_RDY = ConRO:AbilityReady(Ability.Warbreaker, timeShift);
 	end
 
+	if ConRO:HeroSpec(HeroSpec.Slayer) and tChosen[Ability.UnrelentingOnslaught.talentID] then
+		_Bladestorm, _Bladestorm_RDY = ConRO:AbilityReady(Ability.Bladestorm_UO, timeShift);
+	end
+
 --Indicators		
 	ConRO:AbilityInterrupt(_Pummel, _Pummel_RDY and ConRO:Interrupt());
 	ConRO:AbilityPurge(_ArcaneTorrent, _ArcaneTorrent_RDY and _target_in_melee and ConRO:Purgable());
@@ -257,7 +261,7 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 	ConRO:AbilityMovement(_Charge, _Charge_RDY and _Charge_RANGE);
 
 	ConRO:AbilityBurst(_Avatar, _Avatar_RDY and ConRO:BurstMode(_Avatar));
-	ConRO:AbilityBurst(_Bladestorm, _Bladestorm_RDY and _ColossusSmash_DEBUFF and not _SweepingStrikes_BUFF and ConRO:BurstMode(_Bladestorm));
+	ConRO:AbilityBurst(_Bladestorm, _Bladestorm_RDY and (_ColossusSmash_DEBUFF or _ColossusSmash_CD > 15) and ConRO:BurstMode(_Bladestorm));
 	ConRO:AbilityBurst(_ChampionsSpear, _ChampionsSpear_RDY and _ColossusSmash_DEBUFF and ConRO:BurstMode(_ChampionsSpear));
 	ConRO:AbilityBurst(_ColossusSmash, _ColossusSmash_RDY and not _ColossusSmash_DEBUFF and ConRO:BurstMode(_ColossusSmash));
 	ConRO:AbilityBurst(_Ravager, _Ravager_RDY and ConRO:BurstMode(_Ravager));
