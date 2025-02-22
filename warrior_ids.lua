@@ -529,7 +529,8 @@ local ConRO_Warrior, ids = ...;
 		CrashingThunder = {spellID = 436707, talentID = 117413},
 		GroundCurrent = {spellID = 436148, talentID = 117397},
 		StrengthoftheMountain = {spellID = 437068, talentID = 117405},
-		ThunderBlast = {spellID = 435607, talentID = 117382},
+		ThunderBlastPassive = {spellID = 435607, talentID = 117382},
+			ThunderBlast = {spellID = 435222, talentID = 117382},
 		StormBolts = {spellID = 436162, talentID = 117414},
 		StormShield = {spellID = 438597, talentID = 118835},
 		KeepYourFeetontheGround = {spellID = 438590, talentID = 117395},
@@ -550,6 +551,7 @@ local ConRO_Warrior, ids = ...;
 		IgnorePain = 190456,
 		Revenge = 5302,
 		ShieldBlock = 132404,
+		ThunderBlast = 435615,
 		Victorious = 32216,
 		ViolentOutburst = 386478,
  	}

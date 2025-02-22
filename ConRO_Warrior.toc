@@ -1,7 +1,7 @@
 ## Title:-|cffFFFFFFConRO|r- |cffC79C6EWarrior|r
-## Version: 11.0.4
+## Version: 11.0.5
 ## Author: Vae
-## Interface: 110005
+## Interface: 110007
 ## Dependencies: ConRO
 ## LoadOnDemand: 1
 

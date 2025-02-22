@@ -270,222 +270,310 @@ function ConRO.Warrior.Arms(_, timeShift, currentSpell, gcd, tChosen)
 --Warnings
 
 --Rotations
-	for i = 1, 2, 1 do
-		if _Cleave_RDY and _SweepingStrikes_BUFF and _MercilessBonegrinder_BUFF then
-			tinsert(ConRO.SuggestedSpells, _Cleave);
-			_Cleave_RDY = false;
-		end
-
-		if _ThunderClap_RDY and (not _Rend_DEBUFF or _Rend_DUR < 4) and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) and tChosen[Ability.Rend.talentID] then
-			tinsert(ConRO.SuggestedSpells, _ThunderClap);
-			_ThunderClap_RDY = false;
-			_Rend_DEBUFF = true;
-			_Rend_DUR = 10;
-		end
-
-		if _SweepingStrikes_RDY and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) and ConRO:HeroSpec(HeroSpec.Slayer) then
-			tinsert(ConRO.SuggestedSpells, _SweepingStrikes);
-			_SweepingStrikes_RDY = false;
-		end
-
-		if _Rend_RDY and (not _Rend_DEBUFF or _Rend_DUR < 4) then
-			tinsert(ConRO.SuggestedSpells, _Rend);
-			_Rend_DEBUFF = true;
-			_Rend_RDY = false;
-			_Rend_DUR = 10;
-		end
-
-		if _ThunderousRoar_RDY and _target_in_10yrds and ConRO:FullMode(_ThunderousRoar) then
-			tinsert(ConRO.SuggestedSpells, _ThunderousRoar);
-			_ThunderousRoar_RDY = false;
-		end
-
-		if _Ravager_RDY then
-			tinsert(ConRO.SuggestedSpells, _Ravager);
-			_Ravager_RDY = false;
-		end
-
-		if _Avatar_RDY and _ColossusSmash_RDY and ConRO:FullMode(_Avatar) then
-			tinsert(ConRO.SuggestedSpells, _Avatar);
-			_Avatar_RDY = false;
-		end
-
-		if _SweepingStrikes_RDY and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) then
-			tinsert(ConRO.SuggestedSpells, _SweepingStrikes);
-			_SweepingStrikes_RDY = false;
-		end
-
-		if _Skullsplitter_RDY and _SweepingStrikes_BUFF then
-			tinsert(ConRO.SuggestedSpells, _Skullsplitter);
-			_Skullsplitter_RDY = false;
-		end
-
-		if _ColossusSmash_RDY and not _ColossusSmash_DEBUFF	and ConRO:FullMode(_ColossusSmash) then
-			tinsert(ConRO.SuggestedSpells, _ColossusSmash);
-			_ColossusSmash_RDY = false;
-		end
-
-		if _ChampionsSpear_RDY and _ColossusSmash_DEBUFF and ConRO:FullMode(_ChampionsSpear) then
-			tinsert(ConRO.SuggestedSpells, _ChampionsSpear);
-			_ChampionsSpear_RDY = false;
-		end
-
-		if ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) then
-			if _Cleave_RDY then
+	repeat
+		while(true) do
+			if _Cleave_RDY and _SweepingStrikes_BUFF and _MercilessBonegrinder_BUFF then
 				tinsert(ConRO.SuggestedSpells, _Cleave);
 				_Cleave_RDY = false;
+				_Queue = _Queue + 1;
+				break;
 			end
 
-			if _Demolish_RDY and _SweepingStrikes_BUFF and ConRO:HeroSpec(HeroSpec.Colossus) then
-				tinsert(ConRO.SuggestedSpells, _Demolish);
-				_Demolish_RDY = false;
-			end
-
-			if _Overpower_RDY and _Overpower_CHARGES >= 1 and _SweepingStrikes_BUFF and ConRO:HeroSpec(HeroSpec.Slayer) then
-				tinsert(ConRO.SuggestedSpells, _Overpower);
-				_Overpower_CHARGES = _Overpower_CHARGES - 1;
-			end
-
-			if _Overpower_RDY and _Overpower_CHARGES >= 1 and ConRO:HeroSpec(HeroSpec.Colossus) then
-				tinsert(ConRO.SuggestedSpells, _Overpower);
-				_Overpower_CHARGES = _Overpower_CHARGES - 1;
-			end
-
-			if _MortalStrike_RDY and _SweepingStrikes_BUFF and ConRO:HeroSpec(HeroSpec.Colossus) then
-				tinsert(ConRO.SuggestedSpells, _MortalStrike);
-				_MortalStrike_RDY = false;
-			end
-
-			if _Execute_RDY and _SweepingStrikes_BUFF and _SuddenDeath_COUNT >= 1 and ConRO:HeroSpec(HeroSpec.Colossus) then
-				tinsert(ConRO.SuggestedSpells, _Execute);
-				_SuddenDeath_COUNT = _SuddenDeath_COUNT - 1;
-			end
-
-			if _Bladestorm_RDY and ConRO:FullMode(_Bladestorm) then
-				tinsert(ConRO.SuggestedSpells, _Bladestorm);
-				_Bladestorm_RDY = false;
-			end
-
-			if _Execute_RDY and (_SuddenDeath_COUNT >= 1 or _MarkedforExecution_BUFF or _Rage > 40) then
-				tinsert(ConRO.SuggestedSpells, _Execute);
-				_SuddenDeath_COUNT = _SuddenDeath_COUNT - 1;
-			end
-
-			if _MortalStrike_RDY and _SweepingStrikes_BUFF then
-				tinsert(ConRO.SuggestedSpells, _MortalStrike);
-				_MortalStrike_RDY = false;
-			end
-
-			if _Overpower_RDY and _Overpower_CHARGES >= 1 and ConRO:HeroSpec(HeroSpec.Slayer) then
-				tinsert(ConRO.SuggestedSpells, _Overpower);
-				_Overpower_CHARGES = _Overpower_CHARGES - 1;
-			end
-
-			if _ThunderClap_RDY then
+			if _ThunderClap_RDY and (not _Rend_DEBUFF or _Rend_DUR < 4) and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) and tChosen[Ability.Rend.talentID] then
 				tinsert(ConRO.SuggestedSpells, _ThunderClap);
 				_ThunderClap_RDY = false;
 				_Rend_DEBUFF = true;
+				_Rend_DUR = 10;
+				_Queue = _Queue + 1;
+				break;
 			end
 
-			if _MortalStrike_RDY and ConRO:HeroSpec(HeroSpec.Slayer) then
-				tinsert(ConRO.SuggestedSpells, _MortalStrike);
-				_MortalStrike_RDY = false;
+			if _SweepingStrikes_RDY and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) and ConRO:HeroSpec(HeroSpec.Slayer) then
+				tinsert(ConRO.SuggestedSpells, _SweepingStrikes);
+				_SweepingStrikes_RDY = false;
+				_Queue = _Queue + 1;
+				break;
 			end
-		else
-			if _can_Execute then
-				if _Demolish_RDY and _ColossusSmash_DEBUFF and ConRO:HeroSpec(HeroSpec.Colossus) then
+
+			if _Rend_RDY and (not _Rend_DEBUFF or _Rend_DUR < 4) then
+				tinsert(ConRO.SuggestedSpells, _Rend);
+				_Rend_DEBUFF = true;
+				_Rend_RDY = false;
+				_Rend_DUR = 10;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _ThunderousRoar_RDY and _target_in_10yrds and ConRO:FullMode(_ThunderousRoar) then
+				tinsert(ConRO.SuggestedSpells, _ThunderousRoar);
+				_ThunderousRoar_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _Ravager_RDY then
+				tinsert(ConRO.SuggestedSpells, _Ravager);
+				_Ravager_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _Avatar_RDY and _ColossusSmash_RDY and ConRO:FullMode(_Avatar) then
+				tinsert(ConRO.SuggestedSpells, _Avatar);
+				_Avatar_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _SweepingStrikes_RDY and ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) then
+				tinsert(ConRO.SuggestedSpells, _SweepingStrikes);
+				_SweepingStrikes_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _Skullsplitter_RDY and _SweepingStrikes_BUFF then
+				tinsert(ConRO.SuggestedSpells, _Skullsplitter);
+				_Skullsplitter_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _ColossusSmash_RDY and not _ColossusSmash_DEBUFF	and ConRO:FullMode(_ColossusSmash) then
+				tinsert(ConRO.SuggestedSpells, _ColossusSmash);
+				_ColossusSmash_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _ChampionsSpear_RDY and _ColossusSmash_DEBUFF and ConRO:FullMode(_ChampionsSpear) then
+				tinsert(ConRO.SuggestedSpells, _ChampionsSpear);
+				_ChampionsSpear_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if ((ConRO_AutoButton:IsVisible() and _enemies_in_melee >= 2) or ConRO_AoEButton:IsVisible()) then
+				if _Cleave_RDY then
+					tinsert(ConRO.SuggestedSpells, _Cleave);
+					_Cleave_RDY = false;
+					_Queue = _Queue + 1;
+					break;
+				end
+
+				if _Demolish_RDY and _SweepingStrikes_BUFF and ConRO:HeroSpec(HeroSpec.Colossus) then
 					tinsert(ConRO.SuggestedSpells, _Demolish);
 					_Demolish_RDY = false;
+					_Queue = _Queue + 1;
+					break;
 				end
-	
-				if _MortalStrike_RDY and _ExecutionersPrecision_COUNT >= 2 and not _Ravager_BUFF and ConRO:HeroSpec(HeroSpec.Colossus) then
-					tinsert(ConRO.SuggestedSpells, _MortalStrike);
-					_MortalStrike_RDY = false;
-				end
-	
-				if _Bladestorm_RDY and _ExecutionersPrecision_COUNT >= 2 and ConRO:FullMode(_Bladestorm) then
-					tinsert(ConRO.SuggestedSpells, _Bladestorm);
-					_Bladestorm_RDY = false;
-				end
-	
-				if _Skullsplitter_RDY and _Rage < 85 then
-					tinsert(ConRO.SuggestedSpells, _Skullsplitter);
-					_Skullsplitter_RDY = false;
-				end
-	
-				if _MortalStrike_RDY and (_ExecutionersPrecision_COUNT >= 2 or _Rend_DUR < 4) and ConRO:HeroSpec(HeroSpec.Slayer) then
-					tinsert(ConRO.SuggestedSpells, _MortalStrike);
-					_MortalStrike_RDY = false;
-				end
-	
-				if _Overpower_RDY and _Overpower_CHARGES >= 1 and _Rage < 80 and _Opportunist_BUFF and _Overpower_COUNT < 2 then
+
+				if _Overpower_RDY and _Overpower_CHARGES >= 1 and _SweepingStrikes_BUFF and ConRO:HeroSpec(HeroSpec.Slayer) then
 					tinsert(ConRO.SuggestedSpells, _Overpower);
 					_Overpower_CHARGES = _Overpower_CHARGES - 1;
+					_Queue = _Queue + 1;
+					break;
 				end
-	
-				if _Execute_RDY and _Rage >= 20 then
+
+				if _Overpower_RDY and _Overpower_CHARGES >= 1 and ConRO:HeroSpec(HeroSpec.Colossus) then
+					tinsert(ConRO.SuggestedSpells, _Overpower);
+					_Overpower_CHARGES = _Overpower_CHARGES - 1;
+					_Queue = _Queue + 1;
+					break;
+				end
+
+				if _MortalStrike_RDY and _SweepingStrikes_BUFF and ConRO:HeroSpec(HeroSpec.Colossus) then
+					tinsert(ConRO.SuggestedSpells, _MortalStrike);
+					_MortalStrike_RDY = false;
+					_Queue = _Queue + 1;
+					break;
+				end
+
+				if _Execute_RDY and _SweepingStrikes_BUFF and _SuddenDeath_COUNT >= 1 and ConRO:HeroSpec(HeroSpec.Colossus) then
 					tinsert(ConRO.SuggestedSpells, _Execute);
 					_SuddenDeath_COUNT = _SuddenDeath_COUNT - 1;
+					_Queue = _Queue + 1;
+					break;
 				end
-	
-				if _Overpower_RDY and _Overpower_CHARGES >= 1 then
+
+				if _Bladestorm_RDY and ConRO:FullMode(_Bladestorm) then
+					tinsert(ConRO.SuggestedSpells, _Bladestorm);
+					_Bladestorm_RDY = false;
+					_Queue = _Queue + 1;
+					break;
+				end
+
+				if _Execute_RDY and (_SuddenDeath_COUNT >= 1 or _MarkedforExecution_BUFF or _Rage > 40) then
+					tinsert(ConRO.SuggestedSpells, _Execute);
+					_SuddenDeath_COUNT = _SuddenDeath_COUNT - 1;
+					_Queue = _Queue + 1;
+					break;
+				end
+
+				if _MortalStrike_RDY and _SweepingStrikes_BUFF then
+					tinsert(ConRO.SuggestedSpells, _MortalStrike);
+					_MortalStrike_RDY = false;
+					_Queue = _Queue + 1;
+					break;
+				end
+
+				if _Overpower_RDY and _Overpower_CHARGES >= 1 and ConRO:HeroSpec(HeroSpec.Slayer) then
 					tinsert(ConRO.SuggestedSpells, _Overpower);
 					_Overpower_CHARGES = _Overpower_CHARGES - 1;
+					_Queue = _Queue + 1;
+					break;
+				end
+
+				if _ThunderClap_RDY then
+					tinsert(ConRO.SuggestedSpells, _ThunderClap);
+					_ThunderClap_RDY = false;
+					_Rend_DEBUFF = true;
+					_Queue = _Queue + 1;
+					break;
+				end
+
+				if _MortalStrike_RDY and ConRO:HeroSpec(HeroSpec.Slayer) then
+					tinsert(ConRO.SuggestedSpells, _MortalStrike);
+					_MortalStrike_RDY = false;
+					_Queue = _Queue + 1;
+					break;
 				end
 			else
-				if _MortalStrike_RDY and ConRO:HeroSpec(HeroSpec.Colossus) then
-					tinsert(ConRO.SuggestedSpells, _MortalStrike);
-					_MortalStrike_RDY = false;
-				end
+				if _can_Execute then
+					if _Demolish_RDY and _ColossusSmash_DEBUFF and ConRO:HeroSpec(HeroSpec.Colossus) then
+						tinsert(ConRO.SuggestedSpells, _Demolish);
+						_Demolish_RDY = false;
+						_Queue = _Queue + 1;
+						break;
+					end
+		
+					if _MortalStrike_RDY and _ExecutionersPrecision_COUNT >= 2 and not _Ravager_BUFF and ConRO:HeroSpec(HeroSpec.Colossus) then
+						tinsert(ConRO.SuggestedSpells, _MortalStrike);
+						_MortalStrike_RDY = false;
+						_Queue = _Queue + 1;
+						break;
+					end
+		
+					if _Bladestorm_RDY and _ExecutionersPrecision_COUNT >= 2 and ConRO:FullMode(_Bladestorm) then
+						tinsert(ConRO.SuggestedSpells, _Bladestorm);
+						_Bladestorm_RDY = false;
+						_Queue = _Queue + 1;
+						break;
+					end
+		
+					if _Skullsplitter_RDY and _Rage < 85 then
+						tinsert(ConRO.SuggestedSpells, _Skullsplitter);
+						_Skullsplitter_RDY = false;
+						_Queue = _Queue + 1;
+						break;
+					end
+		
+					if _MortalStrike_RDY and (_ExecutionersPrecision_COUNT >= 2 or _Rend_DUR < 4) and ConRO:HeroSpec(HeroSpec.Slayer) then
+						tinsert(ConRO.SuggestedSpells, _MortalStrike);
+						_MortalStrike_RDY = false;
+						_Queue = _Queue + 1;
+						break;
+					end
+		
+					if _Overpower_RDY and _Overpower_CHARGES >= 1 and _Rage < 80 and _Opportunist_BUFF and _Overpower_COUNT < 2 then
+						tinsert(ConRO.SuggestedSpells, _Overpower);
+						_Overpower_CHARGES = _Overpower_CHARGES - 1;
+						_Queue = _Queue + 1;
+						break;
+					end
+		
+					if _Execute_RDY and _Rage >= 20 then
+						tinsert(ConRO.SuggestedSpells, _Execute);
+						_SuddenDeath_COUNT = _SuddenDeath_COUNT - 1;
+						_Queue = _Queue + 1;
+						break;
+					end
+		
+					if _Overpower_RDY and _Overpower_CHARGES >= 1 then
+						tinsert(ConRO.SuggestedSpells, _Overpower);
+						_Overpower_CHARGES = _Overpower_CHARGES - 1;
+						_Queue = _Queue + 1;
+						break;
+					end
+				else
+					if _MortalStrike_RDY and ConRO:HeroSpec(HeroSpec.Colossus) then
+						tinsert(ConRO.SuggestedSpells, _MortalStrike);
+						_MortalStrike_RDY = false;
+						_Queue = _Queue + 1;
+						break;
+					end
 
-				if _Demolish_RDY and ConRO:HeroSpec(HeroSpec.Colossus) then
-					tinsert(ConRO.SuggestedSpells, _Demolish);
-					_Demolish_RDY = false;
-				end
+					if _Demolish_RDY and ConRO:HeroSpec(HeroSpec.Colossus) then
+						tinsert(ConRO.SuggestedSpells, _Demolish);
+						_Demolish_RDY = false;
+						_Queue = _Queue + 1;
+						break;
+					end
 
-				if _Execute_RDY and _SuddenDeath_COUNT >= 2 or (_SuddenDeath_COUNT >= 1 and (_MarkedforExecution_COUNT >= 3 or _Juggernaut_DUR < 2)) then
-					tinsert(ConRO.SuggestedSpells, _Execute);
-					_SuddenDeath_COUNT = _SuddenDeath_COUNT - 1;
-				end
+					if _Execute_RDY and _SuddenDeath_COUNT >= 2 or (_SuddenDeath_COUNT >= 1 and (_MarkedforExecution_COUNT >= 3 or _Juggernaut_DUR < 2)) then
+						tinsert(ConRO.SuggestedSpells, _Execute);
+						_SuddenDeath_COUNT = _SuddenDeath_COUNT - 1;
+						_Queue = _Queue + 1;
+						break;
+					end
 
-				if _Bladestorm_RDY and _ColossusSmash_DEBUFF and ConRO:FullMode(_Bladestorm) then
-					tinsert(ConRO.SuggestedSpells, _Bladestorm);
-					_Bladestorm_RDY = false;
-				end
+					if _Bladestorm_RDY and _ColossusSmash_DEBUFF and ConRO:FullMode(_Bladestorm) then
+						tinsert(ConRO.SuggestedSpells, _Bladestorm);
+						_Bladestorm_RDY = false;
+						_Queue = _Queue + 1;
+						break;
+					end
 
-				if _Overpower_RDY and _Overpower_CHARGES >= 1 and _Opportunist_BUFF then
-					tinsert(ConRO.SuggestedSpells, _Overpower);
-					_Overpower_CHARGES = _Overpower_CHARGES - 1;
-				end
+					if _Overpower_RDY and _Overpower_CHARGES >= 1 and _Opportunist_BUFF then
+						tinsert(ConRO.SuggestedSpells, _Overpower);
+						_Overpower_CHARGES = _Overpower_CHARGES - 1;
+						_Queue = _Queue + 1;
+						break;
+					end
 
-				if _MortalStrike_RDY then
-					tinsert(ConRO.SuggestedSpells, _MortalStrike);
-					_MortalStrike_RDY = false;
-				end
+					if _MortalStrike_RDY then
+						tinsert(ConRO.SuggestedSpells, _MortalStrike);
+						_MortalStrike_RDY = false;
+						_Queue = _Queue + 1;
+						break;
+					end
 
-				if _Skullsplitter_RDY then
-					tinsert(ConRO.SuggestedSpells, _Skullsplitter);
-					_Skullsplitter_RDY = false;
-				end
+					if _Skullsplitter_RDY then
+						tinsert(ConRO.SuggestedSpells, _Skullsplitter);
+						_Skullsplitter_RDY = false;
+						_Queue = _Queue + 1;
+						break;
+					end
 
-				if _Execute_RDY and _SuddenDeath_COUNT >= 1 and ConRO:HeroSpec(HeroSpec.Colossus) then
-					tinsert(ConRO.SuggestedSpells, _Execute);
-					_SuddenDeath_COUNT = _SuddenDeath_COUNT - 1;
-				end
+					if _Execute_RDY and _SuddenDeath_COUNT >= 1 and ConRO:HeroSpec(HeroSpec.Colossus) then
+						tinsert(ConRO.SuggestedSpells, _Execute);
+						_SuddenDeath_COUNT = _SuddenDeath_COUNT - 1;
+						_Queue = _Queue + 1;
+						break;
+					end
 
-				if _Overpower_RDY and _Overpower_CHARGES >= 1 then
-					tinsert(ConRO.SuggestedSpells, _Overpower);
-					_Overpower_CHARGES = _Overpower_CHARGES - 1;
-				end
+					if _Overpower_RDY and _Overpower_CHARGES >= 1 then
+						tinsert(ConRO.SuggestedSpells, _Overpower);
+						_Overpower_CHARGES = _Overpower_CHARGES - 1;
+						_Queue = _Queue + 1;
+						break;
+					end
 
-				if _Slam_RDY and _Rage >= 20 then
-					tinsert(ConRO.SuggestedSpells, _Slam);
-					_Rage = _Rage - 20;
+					if _Slam_RDY and _Rage >= 20 then
+						tinsert(ConRO.SuggestedSpells, _Slam);
+						_Rage = _Rage - 20;
+						_Queue = _Queue + 1;
+						break;
+					end
 				end
 			end
+
+			tinsert(ConRO.SuggestedSpells, 6603); --Auto Attack Spell Icon
+			_Queue = _Queue + 3;
+			break;
 		end
-	end
-	return nil;
+	until _Queue >= 3;
+return nil;
 end
 
 function ConRO.Warrior.ArmsDef(_, timeShift, currentSpell, gcd, tChosen)
@@ -609,7 +697,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 --Rotations
 	repeat
 		while(true) do
-			if _ThunderBlast_RDY and ConRO:IsOverride(_ThunderClap) == _ThunderBlast and _ThunderBlast_BUFF and _Avatar_RDY then
+			if _ThunderBlast_RDY and _ThunderBlast_BUFF and _Avatar_RDY then
 				tinsert(ConRO.SuggestedSpells, _ThunderBlast);
 				_ThunderBlast_RDY = false;
 				_Queue = _Queue + 1;
@@ -637,7 +725,7 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 				break;
 			end
 
-			if _ThunderBlast_RDY and ConRO:IsOverride(_ThunderClap) == _ThunderBlast and _ThunderBlast_BUFF and _Enrage_BUFF then
+			if _ThunderBlast_RDY and _ThunderBlast_BUFF and _Enrage_BUFF then
 				tinsert(ConRO.SuggestedSpells, _ThunderBlast);
 				_ThunderBlast_RDY = false;
 				_Queue = _Queue + 1;
@@ -804,10 +892,11 @@ function ConRO.Warrior.Fury(_, timeShift, currentSpell, gcd, tChosen)
 				break;
 			end
 
-			_Queue = _Queue + 1;
+			tinsert(ConRO.SuggestedSpells, 6603); --Auto Attack Spell Icon
+			_Queue = _Queue + 3;
 			break;
 		end
-	until _Queue > 3;
+	until _Queue >= 3;
 return nil;
 end
 
@@ -885,6 +974,9 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 	local _ThunderousRoar, _ThunderousRoar_RDY = ConRO:AbilityReady(Ability.ThunderousRoar, timeShift);
 
 --Conditions
+	if _ThunderBlast_BUFF then
+		_ThunderClap, _ThunderClap_RDY = ConRO:AbilityReady(Ability.ThunderBlast, timeShift);
+	end
 
 --Indicators		
 	ConRO:AbilityInterrupt(_Pummel, _Pummel_RDY and ConRO:Interrupt());
@@ -904,88 +996,140 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 --Warnings
 
 --Rotations
-	for i = 1, 2, 1 do
-		if _Ravager_RDY and ConRO:FullMode(_Ravager) then
-			tinsert(ConRO.SuggestedSpells, _Ravager);
-			_Ravager_RDY = false;
-		end
+	repeat
+		while(true) do
+			if _Ravager_RDY and ConRO:FullMode(_Ravager) then
+				tinsert(ConRO.SuggestedSpells, _Ravager);
+				_Ravager_RDY = false;
+				_Rage = _Rage + 10;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Avatar_RDY and ConRO:FullMode(_Avatar) then
-			tinsert(ConRO.SuggestedSpells, _Avatar);
-			_Avatar_RDY = false;
-		end
+			if _Avatar_RDY and ConRO:FullMode(_Avatar) then
+				tinsert(ConRO.SuggestedSpells, _Avatar);
+				_Avatar_RDY = false;
+				_Rage = _Rage + 10;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ShieldBlock_RDY and not _ShieldBlock_BUFF and _ShieldBlock_CHARGES >= 1 then
-			tinsert(ConRO.SuggestedDefSpells, _ShieldBlock);
-			_ShieldBlock_BUFF = true;
-			_ShieldBlock_CHARGES = _ShieldBlock_CHARGES - 1;
-		end
+			if _ShieldBlock_RDY and _Rage >= 30 and not _ShieldBlock_BUFF and _ShieldBlock_CHARGES >= 1 then
+				tinsert(ConRO.SuggestedDefSpells, _ShieldBlock);
+				_ShieldBlock_BUFF = true;
+				_Rage = _Rage - 30;
+				_ShieldBlock_CHARGES = _ShieldBlock_CHARGES - 1;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _DemoralizingShout_RDY and tChosen[Ability.BoomingVoice.talentID] and _target_in_10yrds and ConRO:FullMode(_DemoralizingShout) then
-			tinsert(ConRO.SuggestedSpells, _DemoralizingShout);
-			_DemoralizingShout_RDY = false;
-		end
+			if _DemoralizingShout_RDY and tChosen[Ability.BoomingVoice.talentID] and _target_in_10yrds and ConRO:FullMode(_DemoralizingShout) then
+				tinsert(ConRO.SuggestedSpells, _DemoralizingShout);
+				_DemoralizingShout_RDY = false;
+				_Rage = _Rage + 30;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Demolish_RDY and _ColossalMight_COUNT > 3 and ConRO:HeroSpec(HeroSpec.Colossus) then
-			tinsert(ConRO.SuggestedSpells, _Demolish);
-			_Demolish_RDY = false;
-		end
+			if _Demolish_RDY and _ColossalMight_COUNT > 3 and ConRO:HeroSpec(HeroSpec.Colossus) then
+				tinsert(ConRO.SuggestedSpells, _Demolish);
+				_Demolish_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ThunderousRoar_RDY and ConRO:FullMode(_ThunderousRoar) then
-			tinsert(ConRO.SuggestedSpells, _ThunderousRoar);
-			_ThunderousRoar_RDY = false;
-		end
+			if _ThunderousRoar_RDY and ConRO:FullMode(_ThunderousRoar) then
+				tinsert(ConRO.SuggestedSpells, _ThunderousRoar);
+				_ThunderousRoar_RDY = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ChampionsSpear_RDY and ConRO:FullMode(_ChampionsSpear) then
-			tinsert(ConRO.SuggestedSpells, _ChampionsSpear);
-			_ChampionsSpear_RDY = false;
-		end
+			if _ChampionsSpear_RDY and ConRO:FullMode(_ChampionsSpear) then
+				tinsert(ConRO.SuggestedSpells, _ChampionsSpear);
+				_ChampionsSpear_RDY = false;
+				_Rage = _Rage + 20;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ThunderBlast_RDY and ConRO:IsOverride(_ThunderClap) == _ThunderBlast and _ThunderBlast_BUFF and _enemies_in_melee >= 2 then
-			tinsert(ConRO.SuggestedSpells, _ThunderBlast);
-			_ThunderBlast_RDY = false;
-		end
+			if _ThunderBlast_RDY and _ThunderBlast_BUFF and _enemies_in_melee >= 2 then
+				tinsert(ConRO.SuggestedSpells, _ThunderBlast);
+				_ThunderBlast_RDY = false;
+				_Rage = _Rage + 8;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ViolentOutburst_BUFF then
-			if _ThunderClap_RDY and _enemies_in_10yrds >= 4 then
-				tinsert(ConRO.SuggestedSpells, _ThunderClap);
-				_ThunderClap_RDY = false;
-			elseif _ShieldSlam_RDY then
+			if _ViolentOutburst_BUFF then
+				if _ThunderClap_RDY and _enemies_in_10yrds >= 4 then
+					tinsert(ConRO.SuggestedSpells, _ThunderClap);
+					_ThunderClap_RDY = false;
+					_Rage = _Rage + 5;
+					_Queue = _Queue + 1;
+					break;
+				elseif _ShieldSlam_RDY then
+					tinsert(ConRO.SuggestedSpells, _ShieldSlam);
+					_ShieldSlam_RDY = false;
+					_Rage = _Rage + 15;
+					_Queue = _Queue + 1;
+					break;
+				end
+			end
+
+			if _ShieldCharge_RDY and ConRO:FullMode(_ShieldCharge) then
+				tinsert(ConRO.SuggestedSpells, _ShieldCharge);
+				_ShieldCharge_RDY = false;
+				_Rage = _Rage + 40;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _ShieldSlam_RDY then
 				tinsert(ConRO.SuggestedSpells, _ShieldSlam);
 				_ShieldSlam_RDY = false;
+				_Rage = _Rage + 15;
+				_Queue = _Queue + 1;
+				break;
 			end
-		end
 
-		if _ShieldCharge_RDY and ConRO:FullMode(_ShieldCharge) then
-			tinsert(ConRO.SuggestedSpells, _ShieldCharge);
-			_ShieldCharge_RDY = false;
-		end
+			if _ThunderClap_RDY then
+				tinsert(ConRO.SuggestedSpells, _ThunderClap);
+				_ThunderClap_RDY = false;
+				_Rage = _Rage + 5;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ShieldSlam_RDY then
-			tinsert(ConRO.SuggestedSpells, _ShieldSlam);
-			_ShieldSlam_RDY = false;
-		end
+			if _Revenge_RDY and (_Rage >= 50 or _Revenge_BUFF) then
+				tinsert(ConRO.SuggestedSpells, _Revenge);
+				if not _Revenge_BUFF then
+					_Rage = _Rage - 20;
+				end
+				_Revenge_BUFF = false;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _ThunderClap_RDY then
-			tinsert(ConRO.SuggestedSpells, _ThunderClap);
-			_ThunderClap_RDY = false;
-		end
+			if _Execute_RDY and _Rage >= 40 and _can_Execute and _enemies_in_10yrds < 4 then
+				tinsert(ConRO.SuggestedSpells, _Execute);
+				_Rage = _Rage - 40;
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Execute_RDY and _Rage >= 70 and _can_Execute and _enemies_in_10yrds < 4 then
-			tinsert(ConRO.SuggestedSpells, _Execute);
-			_Rage = _Rage - 40;
-		end
+			if _Devastate_RDY and not tChosen[Ability.Devastator.talentID] then
+				tinsert(ConRO.SuggestedSpells, _Devastate);
+				_Queue = _Queue + 1;
+				break;
+			end
 
-		if _Revenge_RDY and (_Rage >= 50 or _Revenge_BUFF) then
-			tinsert(ConRO.SuggestedSpells, _Revenge);
-			_Revenge_BUFF = false;
+			tinsert(ConRO.SuggestedSpells, 6603); --Auto Attack Spell Icon
+			_Queue = _Queue + 3;
+			break;
 		end
-
-		if _Devastate_RDY and not tChosen[Ability.Devastator.talentID] then
-			tinsert(ConRO.SuggestedSpells, _Devastate);
-		end
-	end
-	return nil;
+	until _Queue >= 3;
+return nil;
 end
 
 function ConRO.Warrior.ProtectionDef(_, timeShift, currentSpell, gcd, tChosen)
@@ -1009,39 +1153,41 @@ function ConRO.Warrior.ProtectionDef(_, timeShift, currentSpell, gcd, tChosen)
 
 --Conditions
 
---Rotations	
-	if _SpellReflection_RDY and (ConRO:BossCast() or ConRO:Interrupt()) and ConRO:TarYou() then
-		tinsert(ConRO.SuggestedDefSpells, _SpellReflection);
-	end
-
-	if _ShieldBlock_RDY and not _ShieldBlock_BUFF and _ShieldBlock_CHARGES >= 1 and ConRO:TarYou() then
-		tinsert(ConRO.SuggestedDefSpells, _ShieldBlock);
-	end
-
-	if tChosen[Ability.ImpendingVictory.talentID] then
-		if _ImpendingVictory_RDY and _Player_Percent_Health <= 70 then
-			tinsert(ConRO.SuggestedDefSpells, _ImpendingVictory);
+--Rotations
+	if _in_combat then
+		if _SpellReflection_RDY and (ConRO:BossCast() or ConRO:Interrupt()) and ConRO:TarYou() then
+			tinsert(ConRO.SuggestedDefSpells, _SpellReflection);
 		end
-	else
-		if _VictoryRush_RDY and _Victorious_BUFF and _Player_Percent_Health <= 80 then
-			tinsert(ConRO.SuggestedDefSpells, _VictoryRush);
+
+		if _ShieldBlock_RDY and not _ShieldBlock_BUFF and _ShieldBlock_CHARGES >= 1 and ConRO:TarYou() then
+			tinsert(ConRO.SuggestedDefSpells, _ShieldBlock);
+		end
+
+		if tChosen[Ability.ImpendingVictory.talentID] then
+			if _ImpendingVictory_RDY and _Player_Percent_Health <= 70 then
+				tinsert(ConRO.SuggestedDefSpells, _ImpendingVictory);
+			end
+		else
+			if _VictoryRush_RDY and _Victorious_BUFF and _Player_Percent_Health <= 80 then
+				tinsert(ConRO.SuggestedDefSpells, _VictoryRush);
+			end
+		end
+
+		if _LastStand_RDY and _Player_Percent_Health <= 40 then
+			tinsert(ConRO.SuggestedDefSpells, _LastStand);
+		end
+
+		if _IgnorePain_RDY and not _IgnorePain_BUFF and _Rage >= 70 then
+			tinsert(ConRO.SuggestedDefSpells, _IgnorePain);
+		end
+
+		if _DemoralizingShout_RDY and not tChosen[Ability.BoomingVoice.talentID] then
+			tinsert(ConRO.SuggestedDefSpells, _DemoralizingShout);
+		end
+
+		if _ShieldWall_RDY and _Player_Percent_Health <= 90 then
+			tinsert(ConRO.SuggestedDefSpells, _ShieldWall);
 		end
 	end
-
-	if _LastStand_RDY and _Player_Percent_Health <= 40 then
-		tinsert(ConRO.SuggestedDefSpells, _LastStand);
-	end
-
-	if _IgnorePain_RDY and not _IgnorePain_BUFF and _Rage >= 70 then
-		tinsert(ConRO.SuggestedDefSpells, _IgnorePain);
-	end
-
-	if _DemoralizingShout_RDY then
-		tinsert(ConRO.SuggestedDefSpells, _DemoralizingShout);
-	end
-
-	if _ShieldWall_RDY then
-		tinsert(ConRO.SuggestedDefSpells, _ShieldWall);
-	end
-	return nil;
+return nil;
 end
