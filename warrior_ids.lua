@@ -1,25 +1,25 @@
 local ConRO_Warrior, ids = ...;
 
 --General
-	ids.Racial = {
-		AncestralCall = {spellID = 274738},
-		ArcanePulse = {spellID = 260364},
-		ArcaneTorrent = {spellID = 50613},
-		Berserking = {spellID = 26297},
-		Cannibalize = {spellID = 20577},
-		GiftoftheNaaru = {spellID = 59548},
-		Shadowmeld = {spellID = 58984},
-		SpatialRift = {spellID = 256948},
-	}
-	ids.HeroSpec = {
-		Slayer = 60,
-		MountainThane = 61,
-		Colossus = 62,
-	}
+ids.racial = {
+	AncestralCall = {spellID = 274738},
+	ArcanePulse = {spellID = 260364},
+	ArcaneTorrent = {spellID = 50613},
+	Berserking = {spellID = 26297},
+	Cannibalize = {spellID = 20577},
+	GiftoftheNaaru = {spellID = 59548},
+	Shadowmeld = {spellID = 58984},
+	SpatialRift = {spellID = 256948},
+}
+ids.hero_spec = {
+	Slayer = 60,
+	MountainThane = 61,
+	Colossus = 62,
+}
 
---Arms
-	ids.Arms_Ability = {
-	--Warrior Baseline
+ids.arms = {
+	ability = {
+	--Baseline
 		BattleShout = {spellID = 6673},
 		BerserkerRage = {spellID = 18499},
 		Charge = {spellID = 100},
@@ -30,15 +30,14 @@ local ConRO_Warrior, ids = ...;
 		ShieldBlock = {spellID = 2565},
 		ShieldSlam = {spellID = 23922},
 		Slam = {spellID = 1464},
+		SweepingStrikes = {spellID = 260708},
 		Taunt = {spellID = 355},
 		VictoryRush = {spellID = 34428},
 		Whirlwind = {spellID = 1680},
-	--Arms Baseline
-		SweepingStrikes = {spellID = 260708},
-		--Passive
+	--Passive
 		MasteryDeepWounds = {spellID = 262111},
 		SeasonedSoldier = {spellID = 279423},
-	--Warrior
+	--Warrior Talents
 		BattleStance = {spellID = 386164, talentID = 112184},
 		DefensiveStance = {spellID = 386208, talentID = 114643},
 		FastFootwork = {spellID = 382260, talentID = 112206},
@@ -75,10 +74,9 @@ local ConRO_Warrior, ids = ...;
 		ConcussiveBlows = {spellID = 383115, talentID = 118843},
 		BerserkerShout = {spellID = 384100, talentID = 112211},
 		PiercingHowl = {spellID = 12323, talentID = 112210},
+		TwoHandedWeaponSpecialization = {spellID = 382896, talentID = 112179},
 		CruelStrikes = {spellID = 392777, talentID = 112248},
 		WildStrikes = {spellID = 382946, talentID = 112224},
-		TwoHandedWeaponSpecialization = {spellID = 382896, talentID = 112179},
-		EnduranceTraining = {spellID = 382940, talentID = 112199},
 		ArmoredtotheTeeth = {spellID = 384124, talentID = 112233},
 		ThunderousRoar = {spellID = 384318, talentID = 112223},
 		Avatar = {spellID = 107574, talentID = 112232},
@@ -89,7 +87,7 @@ local ConRO_Warrior, ids = ...;
 		WarlordsTorment = {spellID = 390140, talentID = 112228},
 		PiercingChallenge = {spellID = 382948, talentID = 112246},
 		ChampionsMight = {spellID = 386284, talentID = 112180},
-	--Arms
+	--Arms Talents
 		MortalStrike = {spellID = 12294, talentID = 112122},
 		Overpower = {spellID = 7384, talentID = 112123},
 		MartialProwess = {spellID = 316440, talentID = 112130},
@@ -138,7 +136,7 @@ local ConRO_Warrior, ids = ...;
 		Unhinged = {spellID = 386628, talentID = 112313},
 		MercilessBonegrinder = {spellID = 383317, talentID = 112117},
 		ExecutionersPrecision = {spellID = 386634, talentID = 112318},
-	--Hero
+	--Hero Talents
 	--Colossus
 		Demolish = {spellID = 436358, talentID = 117415},
 		MartialExpert = {spellID = 429638, talentID = 117409},
@@ -170,16 +168,19 @@ local ConRO_Warrior, ids = ...;
 		SlayersMalice = {spellID = 444779, talentID = 117398},
 		UnrelentingOnslaught = {spellID = 444780, talentID = 117417},
 			Bladestorm_UO = {spellID = 446035, talentID = 117417},
-	}
-	ids.Arms_Form = {
-		DefensiveStance = 197690,
-	}
-	ids.Arms_Buff = {
+	},
+	pvp_talent = {
+
+	},
+	buff = {
 		Avatar = 107574,
 		BattleShout = 6673,
+		colossus_might = 440989,
 		DeadlyCalm = 262228,
+		DefensiveStance = 197690,
 		ExecutionersPrecision = 242188,
 		IgnorePain = 190456,
+		imminent_demise = 445606,
 		InForTheKill = 248622,
 		Juggernaut = 383290,
 		MercilessBonegrinder = 383316,
@@ -190,21 +191,19 @@ local ConRO_Warrior, ids = ...;
 		SweepingStrikes = 260708,
 		TestofMight = 385013,
 		Victorious = 32216,
-	}
-	ids.Arms_Debuff = {
+	},
+	debuff = {
 		ColossusSmash = 208086,
 		DeepWounds = 262115,
 		MarkedforExecution = 445584,
 		MortalWounds = 115804,
 		Rend = 388539,
-	}
-	ids.Arms_PetAbility = {
+	},
+}
 
-	}
-
---Fury
-	ids.Fury_Ability = {
-	--Warrior Baseline
+ids.fury = {
+	ability = {
+	--Baseline
 		BattleShout = {spellID = 6673},
 		BerserkerRage = {spellID = 18499},
 		Charge = {spellID = 100},
@@ -218,13 +217,12 @@ local ConRO_Warrior, ids = ...;
 		Taunt = {spellID = 355},
 		VictoryRush = {spellID = 34428},
 		Whirlwind = {spellID = 190411},
-	--Fury Baseline
-		--Passive
+	--Passive
 		DualWield = {spellID = 231842},
 		Enrage = {spellID = 184361},
 		MasteryUnshackledFury = {spellID = 76856},
 		TitansGrip = {spellID = 46917},
-	--Warrior
+	--Warrior Talents
 		BerserkerStance = {spellID = 386196, talentID = 112182},
 		DefensiveStance = {spellID = 386208, talentID = 114643},
 		FastFootwork = {spellID = 382260, talentID = 112206},
@@ -261,10 +259,9 @@ local ConRO_Warrior, ids = ...;
 		ConcussiveBlows = {spellID = 383115, talentID = 118843},
 		BerserkerShout = {spellID = 384100, talentID = 112211},
 		PiercingHowl = {spellID = 12323, talentID = 112210},
+		DualWieldSpecialization = {spellID = 382900, talentID = 112240},
 		CruelStrikes = {spellID = 392777, talentID = 112248},
 		WildStrikes = {spellID = 382946, talentID = 112224},
-		DualWieldSpecialization = {spellID = 382900, talentID = 112240},
-		EnduranceTraining = {spellID = 391997, talentID = 112243},
 		ArmoredtotheTeeth = {spellID = 384124, talentID = 112108},
 		ThunderousRoar = {spellID = 384318, talentID = 112223},
 		Avatar = {spellID = 107574, talentID = 114770},
@@ -275,7 +272,7 @@ local ConRO_Warrior, ids = ...;
 		TitansTorment = {spellID = 390135, talentID = 112226},
 		PiercingChallenge = {spellID = 382948, talentID = 112246},
 		ChampionsMight = {spellID = 386284, talentID = 112180},
-	--Fury
+	--Fury Talents
 		Bloodthirst = {spellID = 23881, talentID = 112261},
 		RagingBlow = {spellID = 85288, talentID = 112265},
 		FrenziedEnrage = {spellID = 383848, talentID = 112267},
@@ -324,14 +321,17 @@ local ConRO_Warrior, ids = ...;
 		DepthsofInsanity = {spellID = 383922, talentID = 112282},
 		DancingBlades = {spellID = 391683, talentID = 112288},
 		TitanicRage = {spellID = 394329, talentID = 112287},
-	--Hero
+	--Hero Talents
 	--Mountain Thane
 		LightningStrikes = {spellID = 434969, talentID = 117400},
 		CrashingThunder = {spellID = 436707, talentID = 117413},
 		GroundCurrent = {spellID = 436148, talentID = 117397},
 		StrengthoftheMountain = {spellID = 437068, talentID = 117405},
-		ThunderBlastPassive = {spellID = 435607, talentID = 117382},
-			ThunderBlast = {spellID = 435222, talentID = 117382},
+		ThunderBlast = {
+			passiveID = 435607,
+			spellID = 435222,
+			talentID = 117382
+		},
 		StormBolts = {spellID = 436162, talentID = 117414},
 		StormShield = {spellID = 438597, talentID = 118835},
 		KeepYourFeetontheGround = {spellID = 438590, talentID = 117395},
@@ -358,14 +358,16 @@ local ConRO_Warrior, ids = ...;
 		SlayersMalice = {spellID = 444779, talentID = 117398},
 		UnrelentingOnslaught = {spellID = 444780, talentID = 117417},
 			Bladestorm_UO = {spellID = 446035, talentID = 117417},
-	}
-	ids.Fury_Form = {
+	},
+	pvp_talent = {
 
-	}
-	ids.Fury_Buff = {
+	},
+	buff = {
 		AshenJuggernaut = 392537,
 		Avatar = 107574,
 		BattleShout = 6673,
+		bloodcraze = 393951,
+		brutal_finish = 446918,
 		ColossalMight = 440989,
 		Enrage = 184362,
 		FuriousSlash = 202539,
@@ -373,25 +375,25 @@ local ConRO_Warrior, ids = ...;
 		Opportunist = 456120,
 		RecklessAbandon = 396752,
 		Recklessness = 1719,
+		slaughtering_strikes = 393931,
 		SuddenDeath = 280776,
 		ThunderBlast = 435615,
 		Victorious = 32216,
 		Whirlwind = 85739,
-	}
-	ids.Fury_Debuff = {
+	},
+	debuff = {
 		MarkedforExecution = 445584,
 		Siegebreaker = 280773,
-	}
-	ids.Fury_PetAbility = {
+	},
+}
 
-	}
-
---Protection
-	ids.Prot_Ability = {
-	--Warrior Baseline
+ids.protection = {
+	ability = {
+	--Baseline
 		BattleShout = {spellID = 6673},
 		BerserkerRage = {spellID = 18499},
 		Charge = {spellID = 100},
+		Devastate = {spellID = 20243},
 		Execute = {spellID = 163201},
 		Hamstring = {spellID = 1715},
 		HeroicThrow = {spellID = 57755},
@@ -402,13 +404,11 @@ local ConRO_Warrior, ids = ...;
 		Taunt = {spellID = 355},
 		VictoryRush = {spellID = 34428},
 		Whirlwind = {spellID = 1680},
-	--Protection Baseline
-		Devastate = {spellID = 20243},
-		--Passive
+	--Passive
 		MasteryCriticalBlock = {spellID = 76857},
 		Riposte = {spellID = 161798},
 		Vanguard = {spellID = 71},
-	--Warrior
+	--Warrior Talents
 		BattleStance = {spellID = 386164, talentID = 112112},
 		DefensiveStance = {spellID = 386208, talentID = 112187},
 		FastFootwork = {spellID = 382260, talentID = 112206},
@@ -445,13 +445,12 @@ local ConRO_Warrior, ids = ...;
 		ConcussiveBlows = {spellID = 383115, talentID = 118843},
 		BerserkerShout = {spellID = 384100, talentID = 112211},
 		PiercingHowl = {spellID = 12323, talentID = 112210},
+		OneHandedWeaponSpecialization = {spellID = 382895, talentID = 112181},
 		CruelStrikes = {spellID = 392777, talentID = 112248},
 		WildStrikes = {spellID = 382946, talentID = 112224},
-		OneHandedWeaponSpecialization = {spellID = 382895, talentID = 112181},
-		EnduranceTraining = {spellID = 382940, talentID = 112200},
 		ArmoredtotheTeeth = {spellID = 394855, talentID = 112109},
 		ThunderousRoar = {spellID = 384318, talentID = 112223},
-		Avatar = {spellID = 401150, talentID = 114769},
+		Avatar = {spellID = 107574, talentID = 114769},
 		ChampionsSpear = {spellID = 376079, talentID = 112247},
 		Uproar = {spellID = 391572, talentID = 112221},
 		ThunderousWords = {spellID = 384969, talentID = 112222},
@@ -459,7 +458,7 @@ local ConRO_Warrior, ids = ...;
 		UnstoppableForce = {spellID = 275336, talentID = 112230},
 		PiercingChallenge = {spellID = 382948, talentID = 112246},
 		ChampionsMight = {spellID = 386284, talentID = 112180},
-	--Protection
+	--Protection Talents
 		IgnorePain = {spellID = 190456, talentID = 112149},
 		Revenge = {spellID = 6572, talentID = 112152},
 		DemoralizingShout = {spellID = 1160, talentID = 112159},
@@ -508,7 +507,7 @@ local ConRO_Warrior, ids = ...;
 		BattleScarredVeteran = {spellID = 386394, talentID = 112307},
 		DanceofDeath = {spellID = 390713, talentID = 112302},
 		StormofSteel = {spellID = 382953, talentID = 112306},
-	--Hero
+	--Hero Talents
 	--Colossus
 		Demolish = {spellID = 436358, talentID = 117415},
 		MartialExpert = {spellID = 429638, talentID = 117409},
@@ -529,8 +528,7 @@ local ConRO_Warrior, ids = ...;
 		CrashingThunder = {spellID = 436707, talentID = 117413},
 		GroundCurrent = {spellID = 436148, talentID = 117397},
 		StrengthoftheMountain = {spellID = 437068, talentID = 117405},
-		ThunderBlastPassive = {spellID = 435607, talentID = 117382},
-			ThunderBlast = {spellID = 435222, talentID = 117382},
+		ThunderBlast = {passiveID = 435607, spellID = 435222, talentID = 117382},
 		StormBolts = {spellID = 436162, talentID = 117414},
 		StormShield = {spellID = 438597, talentID = 118835},
 		KeepYourFeetontheGround = {spellID = 438590, talentID = 117395},
@@ -541,24 +539,23 @@ local ConRO_Warrior, ids = ...;
 		ThorimsMight = {spellID = 436152, talentID = 118834},
 		BurstofPower = {spellID = 437118, talentID = 117404},
 		AvataroftheStorm = {spellID = 437134, talentID = 117402},
-	}
-	ids.Prot_Form = {
+	},
+	pvp_talent = {
 
-	}
-	ids.Prot_Buff = {
+	},
+	buff = {
 		Avatar = 107574,
 		BattleShout = 6673,
+		colossus_might = 440989,
 		IgnorePain = 190456,
 		Revenge = 5302,
 		ShieldBlock = 132404,
 		ThunderBlast = 435615,
 		Victorious = 32216,
 		ViolentOutburst = 386478,
- 	}
-	ids.Prot_Debuff = {
+ 	},
+	debuff = {
 		DeepWounds = 115767,
 		DemoralizingShout = 1160,
-	}
-	ids.Prot_PetAbility = {
-
-	}
+	},
+}
