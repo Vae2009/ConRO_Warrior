@@ -19,7 +19,7 @@ function ConRO:EnableRotationModule(mode)
 	if mode == 1 then
 		self.Description = 'Warrior [Arms - Melee]';
 		if ConRO.db.profile._Spec_1_Enabled then
-			Ability, Buff, Debuff, PvPTalent = ids.arms.ability, ids.arms.buff, ids.arms.debuff, ids.arms.pvptalent;
+			Ability, Buff, Debuff, PvPTalent = ids.arms.ability, ids.arms.buff, ids.arms.debuff, ids.arms.pvp_talent;
 			self.NextSpell = ConRO.Warrior.Arms;
 			self.NextDef = ConRO.Warrior.ArmsDef;
 			self.ToggleDamage();
@@ -36,7 +36,7 @@ function ConRO:EnableRotationModule(mode)
 	if mode == 2 then
 		self.Description = 'Warrior [Fury - Melee]';
 		if ConRO.db.profile._Spec_2_Enabled then
-			Ability, Buff, Debuff, PvPTalent = ids.fury.ability, ids.fury.buff, ids.fury.debuff, ids.fury.pvptalent;
+			Ability, Buff, Debuff, PvPTalent = ids.fury.ability, ids.fury.buff, ids.fury.debuff, ids.fury.pvp_talent;
 			self.NextSpell = ConRO.Warrior.Fury;
 			self.NextDef = ConRO.Warrior.FuryDef;
 			self.ToggleDamage();
@@ -53,7 +53,7 @@ function ConRO:EnableRotationModule(mode)
 	if mode == 3 then
 		self.Description = 'Warrior [Protection - Tank]';
 		if ConRO.db.profile._Spec_3_Enabled then
-			Ability, Buff, Debuff, PvPTalent = ids.protection.ability, ids.protection.buff, ids.protection.debuff, ids.protection.pvptalent;
+			Ability, Buff, Debuff, PvPTalent = ids.protection.ability, ids.protection.buff, ids.protection.debuff, ids.protection.pvp_talent;
 			self.NextSpell = ConRO.Warrior.Protection;
 			self.NextDef = ConRO.Warrior.ProtectionDef;
 			self.ToggleDamage();
@@ -975,61 +975,61 @@ function ConRO.Warrior.FuryDef(_, timeShift, currentSpell, gcd, tChosen)
 end
 
 function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
-	wipe(ConRO.SuggestedSpells);
-	ConRO:Stats();
+	wipe(ConRO.SuggestedSpells)
+	ConRO:Stats()
 
 --Abilities	
-	local _Avatar, _Avatar_RDY = ConRO:AbilityReady(Ability.Avatar, timeShift);
-		local _Avatar_BUFF = ConRO:Aura(Buff.Avatar, timeShift);
-	local _BattleShout, _BattleShout_RDY = ConRO:AbilityReady(Ability.BattleShout, timeShift);
-	local _Charge, _Charge_RDY = ConRO:AbilityReady(Ability.Charge, timeShift);
-		local _Charge_RANGE = ConRO:IsSpellInRange(Ability.Charge, 'target');
-	local _Demolish, _Demolish_RDY = ConRO:AbilityReady(Ability.Demolish, timeShift);
-		local _, _ColossalMight_COUNT = ConRO:Aura(Buff.colossus_might, timeShift);
-	local _DemoralizingShout, _DemoralizingShout_RDY = ConRO:AbilityReady(Ability.DemoralizingShout, timeShift);
-	local _Devastate, _Devastate_RDY = ConRO:AbilityReady(Ability.Devastate, timeShift);
-	local _Execute, _Execute_RDY = ConRO:AbilityReady(Ability.Execute, timeShift);
-	local _Pummel, _Pummel_RDY = ConRO:AbilityReady(Ability.Pummel, timeShift);
-	local _Ravager, _Ravager_RDY = ConRO:AbilityReady(Ability.Ravager, timeShift);
-	local _Revenge, _Revenge_RDY = ConRO:AbilityReady(Ability.Revenge, timeShift);
-		local _Revenge_BUFF = ConRO:Aura(Buff.Revenge, timeShift);
-	local _ShatteringThrow, _ShatteringThrow_RDY = ConRO:AbilityReady(Ability.ShatteringThrow, timeShift);
-		local _IceBlock_BUFF = ConRO:UnitAura(45438, timeShift, 'target', 'HELPFUL');
-		local _DivineShield_BUFF = ConRO:UnitAura(642, timeShift, 'target', 'HELPFUL');
-	local _ShieldBlock, _ShieldBlock_RDY = ConRO:AbilityReady(Ability.ShieldBlock, timeShift);
-		local _ShieldBlock_CHARGES = ConRO:SpellCharges(_ShieldBlock);
-		local _ShieldBlock_BUFF = ConRO:Aura(Buff.ShieldBlock, timeShift);
-	local _ShieldCharge, _ShieldCharge_RDY = ConRO:AbilityReady(Ability.ShieldCharge, timeShift);
-	local _ShieldSlam, _ShieldSlam_RDY, _ShieldSlam_CD = ConRO:AbilityReady(Ability.ShieldSlam, timeShift);
-		local _ViolentOutburst_BUFF = ConRO:Aura(Buff.ViolentOutburst, timeShift);
-	local _Shockwave, _Shockwave_RDY = ConRO:AbilityReady(Ability.Shockwave, timeShift);
-	local _ChampionsSpear, _ChampionsSpear_RDY = ConRO:AbilityReady(Ability.ChampionsSpear, timeShift);
-	local _StormBolt, _StormBolt_RDY = ConRO:AbilityReady(Ability.StormBolt, timeShift);
-	local _Taunt, _Taunt_RDY = ConRO:AbilityReady(Ability.Taunt, timeShift);
-	local _ThunderClap, _ThunderClap_RDY = ConRO:AbilityReady(Ability.ThunderClap, timeShift);
-	local _ThunderBlast, _ThunderBlast_RDY = ConRO:AbilityReady(Ability.ThunderBlast, timeShift);
-		local _ThunderBlast_BUFF = ConRO:Aura(Buff.ThunderBlast, timeShift);
-	local _ThunderousRoar, _ThunderousRoar_RDY = ConRO:AbilityReady(Ability.ThunderousRoar, timeShift);
+	local _Avatar, _Avatar_RDY = ConRO:AbilityReady(Ability.Avatar, timeShift)
+		local _Avatar_BUFF = ConRO:Aura(Buff.Avatar, timeShift)
+	local _BattleShout, _BattleShout_RDY = ConRO:AbilityReady(Ability.BattleShout, timeShift)
+	local _Charge, _Charge_RDY = ConRO:AbilityReady(Ability.Charge, timeShift)
+		local _Charge_RANGE = ConRO:IsSpellInRange(Ability.Charge, 'target')
+	local _Demolish, _Demolish_RDY = ConRO:AbilityReady(Ability.Demolish, timeShift)
+		local _, _ColossalMight_COUNT = ConRO:Aura(Buff.colossus_might, timeShift)
+	local _DemoralizingShout, _DemoralizingShout_RDY = ConRO:AbilityReady(Ability.DemoralizingShout, timeShift)
+	local _Devastate, _Devastate_RDY = ConRO:AbilityReady(Ability.Devastate, timeShift)
+	local _Execute, _Execute_RDY = ConRO:AbilityReady(Ability.Execute, timeShift)
+	local _Pummel, _Pummel_RDY = ConRO:AbilityReady(Ability.Pummel, timeShift)
+	local _Ravager, _Ravager_RDY = ConRO:AbilityReady(Ability.Ravager, timeShift)
+	local _Revenge, _Revenge_RDY = ConRO:AbilityReady(Ability.Revenge, timeShift)
+		local _Revenge_BUFF = ConRO:Aura(Buff.Revenge, timeShift)
+	local _ShatteringThrow, _ShatteringThrow_RDY = ConRO:AbilityReady(Ability.ShatteringThrow, timeShift)
+		local _IceBlock_BUFF = ConRO:UnitAura(45438, timeShift, 'target', 'HELPFUL')
+		local _DivineShield_BUFF = ConRO:UnitAura(642, timeShift, 'target', 'HELPFUL')
+	local _ShieldBlock, _ShieldBlock_RDY = ConRO:AbilityReady(Ability.ShieldBlock, timeShift)
+		local _ShieldBlock_CHARGES = ConRO:SpellCharges(_ShieldBlock)
+		local _ShieldBlock_BUFF = ConRO:Aura(Buff.ShieldBlock, timeShift)
+	local _ShieldCharge, _ShieldCharge_RDY = ConRO:AbilityReady(Ability.ShieldCharge, timeShift)
+	local _ShieldSlam, _ShieldSlam_RDY, _ShieldSlam_CD = ConRO:AbilityReady(Ability.ShieldSlam, timeShift)
+		local _ViolentOutburst_BUFF = ConRO:Aura(Buff.ViolentOutburst, timeShift)
+	local _Shockwave, _Shockwave_RDY = ConRO:AbilityReady(Ability.Shockwave, timeShift)
+	local _ChampionsSpear, _ChampionsSpear_RDY = ConRO:AbilityReady(Ability.ChampionsSpear, timeShift)
+	local _StormBolt, _StormBolt_RDY = ConRO:AbilityReady(Ability.StormBolt, timeShift)
+	local _Taunt, _Taunt_RDY = ConRO:AbilityReady(Ability.Taunt, timeShift)
+	local _ThunderClap, _ThunderClap_RDY = ConRO:AbilityReady(Ability.ThunderClap, timeShift)
+	local _ThunderBlast, _ThunderBlast_RDY = ConRO:AbilityReady(Ability.ThunderBlast, timeShift)
+		local _ThunderBlast_BUFF = ConRO:Aura(Buff.ThunderBlast, timeShift)
+	local _ThunderousRoar, _ThunderousRoar_RDY = ConRO:AbilityReady(Ability.ThunderousRoar, timeShift)
 
 --Conditions
 	if _ThunderBlast_BUFF then
-		_ThunderClap, _ThunderClap_RDY = ConRO:AbilityReady(Ability.ThunderBlast, timeShift);
+		_ThunderClap, _ThunderClap_RDY = ConRO:AbilityReady(Ability.ThunderBlast, timeShift)
 	end
 
 --Indicators		
-	ConRO:AbilityInterrupt(_Pummel, _Pummel_RDY and ConRO:Interrupt());
+	ConRO:AbilityInterrupt(_Pummel, _Pummel_RDY and ConRO:Interrupt())
 
-	ConRO:AbilityPurge(_ArcaneTorrent, _ArcaneTorrent_RDY and _target_in_melee and ConRO:Purgable());
-	ConRO:AbilityPurge(_ShatteringThrow, _ShatteringThrow_RDY and (_IceBlock_BUFF or _DivineShield_BUFF));
-	ConRO:AbilityRaidBuffs(_BattleShout, _BattleShout_RDY and not ConRO:RaidBuff(Buff.BattleShout));
-	ConRO:AbilityTaunt(_Taunt, _Taunt_RDY and (not ConRO:InRaid() or (ConRO:InRaid() and ConRO:TarYou())));
-	ConRO:AbilityMovement(_Charge, _Charge_RDY and _Charge_RANGE);
+	ConRO:AbilityPurge(_ArcaneTorrent, _ArcaneTorrent_RDY and _target_in_melee and ConRO:Purgable())
+	ConRO:AbilityPurge(_ShatteringThrow, _ShatteringThrow_RDY and (_IceBlock_BUFF or _DivineShield_BUFF))
+	ConRO:AbilityRaidBuffs(_BattleShout, _BattleShout_RDY and not ConRO:RaidBuff(Buff.BattleShout))
+	ConRO:AbilityTaunt(_Taunt, _Taunt_RDY and (not ConRO:InRaid() or (ConRO:InRaid() and ConRO:TarYou())))
+	ConRO:AbilityMovement(_Charge, _Charge_RDY and _Charge_RANGE)
 
-	ConRO:AbilityBurst(_Avatar, _Avatar_RDY and _is_Enemy and ConRO:BurstMode(_Avatar));
-	ConRO:AbilityBurst(_DemoralizingShout, _DemoralizingShout_RDY and tChosen[Ability.BoomingVoice.talentID] and _is_Enemy and ConRO:BurstMode(_DemoralizingShout));
-	ConRO:AbilityBurst(_Ravager, _Ravager_RDY and _is_Enemy and ConRO:BurstMode(_Ravager));
-	ConRO:AbilityBurst(_ShieldCharge, _ShieldCharge_RDY and ConRO:BurstMode(_ShieldCharge));
-	ConRO:AbilityBurst(_ChampionsSpear, _ChampionsSpear_RDY and _in_combat and ConRO:BurstMode(_ChampionsSpear));
+	ConRO:AbilityBurst(_Avatar, _Avatar_RDY and _is_Enemy and ConRO:BurstMode(_Avatar))
+	ConRO:AbilityBurst(_DemoralizingShout, _DemoralizingShout_RDY and tChosen[Ability.BoomingVoice.talentID] and _is_Enemy and ConRO:BurstMode(_DemoralizingShout))
+	ConRO:AbilityBurst(_Ravager, _Ravager_RDY and _is_Enemy and ConRO:BurstMode(_Ravager))
+	ConRO:AbilityBurst(_ShieldCharge, _ShieldCharge_RDY and ConRO:BurstMode(_ShieldCharge))
+	ConRO:AbilityBurst(_ChampionsSpear, _ChampionsSpear_RDY and _in_combat and ConRO:BurstMode(_ChampionsSpear))
 
 --Warnings
 
@@ -1061,10 +1061,25 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 				break;
 			end
 
+			if _ThunderousRoar_RDY and ConRO:FullMode(_ThunderousRoar) then
+				tinsert(ConRO.SuggestedSpells, _ThunderousRoar)
+				_ThunderousRoar_RDY = false
+				_Queue = _Queue + 1
+				break
+			end
+
 			if _DemoralizingShout_RDY and tChosen[Ability.BoomingVoice.talentID] and _target_in_10yrds and ConRO:FullMode(_DemoralizingShout) then
 				tinsert(ConRO.SuggestedSpells, _DemoralizingShout);
 				_DemoralizingShout_RDY = false;
 				_Rage = _Rage + 30;
+				_Queue = _Queue + 1;
+				break;
+			end
+
+			if _ChampionsSpear_RDY and ConRO:FullMode(_ChampionsSpear) then
+				tinsert(ConRO.SuggestedSpells, _ChampionsSpear);
+				_ChampionsSpear_RDY = false;
+				_Rage = _Rage + 20;
 				_Queue = _Queue + 1;
 				break;
 			end
@@ -1076,17 +1091,10 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 				break;
 			end
 
-			if _ThunderousRoar_RDY and ConRO:FullMode(_ThunderousRoar) then
-				tinsert(ConRO.SuggestedSpells, _ThunderousRoar);
-				_ThunderousRoar_RDY = false;
-				_Queue = _Queue + 1;
-				break;
-			end
-
-			if _ChampionsSpear_RDY and ConRO:FullMode(_ChampionsSpear) then
-				tinsert(ConRO.SuggestedSpells, _ChampionsSpear);
-				_ChampionsSpear_RDY = false;
-				_Rage = _Rage + 20;
+			if _ShieldCharge_RDY and ConRO:FullMode(_ShieldCharge) then
+				tinsert(ConRO.SuggestedSpells, _ShieldCharge);
+				_ShieldCharge_RDY = false;
+				_Rage = _Rage + 40;
 				_Queue = _Queue + 1;
 				break;
 			end
@@ -1113,14 +1121,6 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 					_Queue = _Queue + 1;
 					break;
 				end
-			end
-
-			if _ShieldCharge_RDY and ConRO:FullMode(_ShieldCharge) then
-				tinsert(ConRO.SuggestedSpells, _ShieldCharge);
-				_ShieldCharge_RDY = false;
-				_Rage = _Rage + 40;
-				_Queue = _Queue + 1;
-				break;
 			end
 
 			if _ShieldSlam_RDY then
@@ -1172,12 +1172,12 @@ function ConRO.Warrior.Protection(_, timeShift, currentSpell, gcd, tChosen)
 				break;
 			end
 
-			tinsert(ConRO.SuggestedSpells, 6603); --Auto Attack Spell Icon
-			_Queue = _Queue + 3;
-			break;
+			tinsert(ConRO.SuggestedSpells, 6603) --Auto Attack Spell Icon
+			_Queue = _Queue + 3
+			break
 		end
-	until _Queue >= 3;
-	return nil;
+	until _Queue >= 3
+	return nil
 end
 
 function ConRO.Warrior.ProtectionDef(_, timeShift, currentSpell, gcd, tChosen)
